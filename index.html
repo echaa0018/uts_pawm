@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPortal - Unlock Your Potential</title>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+        /* ============================
+           CSS RESET & BASE STYLES
+           ============================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Color Palette */
+            --primary-blue: #4F46E5;
+            --primary-blue-dark: #4338CA;
+            --accent-orange: #F59E0B;
+            --accent-green: #10B981;
+            --bg-light: #F8FAFC;
+            --bg-white: #FFFFFF;
+            --text-dark: #1E293B;
+            --text-medium: #64748B;
+            --text-light: #94A3B8;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ============================
+           HEADER & NAVIGATION
+           ============================ */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-medium);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ============================
+           MAIN CONTENT CONTAINER
+           ============================ */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* ============================
+           HERO SECTION
+           ============================ */
+        .hero-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+            border-radius: 20px;
+            color: white;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-lg);
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-section p {
+            font-size: 1.25rem;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        /* ============================
+           COURSE GRID SECTION
+           ============================ */
+        .courses-section {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Glassmorphism Course Cards */
+        .course-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-orange));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .course-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .course-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .course-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .course-description {
+            font-size: 0.95rem;
+            color: var(--text-medium);
+            line-height: 1.5;
+        }
+
+        .course-button {
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .course-button:hover {
+            background: var(--primary-blue-dark);
+            transform: scale(1.05);
+        }
+
+        /* ============================
+           COURSE DETAIL VIEW
+           ============================ */
+        .course-detail {
+            display: none;
+            animation: fadeIn 0.5s ease;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .course-detail.active {
+            display: block;
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .detail-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .back-button {
+            padding: 0.75rem 2rem;
+            background: var(--text-medium);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .back-button:hover {
+            background: var(--text-dark);
+            transform: scale(1.05);
+        }
+
+        .detail-content {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* ============================
+           PHYSICS CANVAS ANIMATION
+           ============================ */
+        .canvas-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        #physicsCanvas {
+            border: 2px solid var(--primary-blue);
+            border-radius: 15px;
+            background: linear-gradient(to bottom, #E0F2FE 0%, #F8FAFC 100%);
+            box-shadow: var(--shadow-md);
+            max-width: 100%;
+            height: auto;
+        }
+
+        .canvas-controls {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .canvas-button {
+            padding: 0.75rem 1.5rem;
+            background: var(--accent-green);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .canvas-button:hover {
+            background: #059669;
+            transform: scale(1.05);
+        }
+
+        .canvas-button.reset {
+            background: var(--accent-orange);
+        }
+
+        .canvas-button.reset:hover {
+            background: #D97706;
+        }
+
+        /* ============================
+           DRAG & DROP QUIZ
+           ============================ */
+        .quiz-container {
+            margin: 2rem 0;
+        }
+
+        .quiz-instructions {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .drag-items-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .drag-item {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+            color: white;
+            border-radius: 10px;
+            cursor: move;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            user-select: none;
+        }
+
+        .drag-item:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .drag-item.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+
+        .drop-zones-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .drop-zone {
+            padding: 2rem;
+            background: var(--bg-light);
+            border: 3px dashed var(--text-light);
+            border-radius: 10px;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone.drag-over {
+            background: #DBEAFE;
+            border-color: var(--primary-blue);
+            transform: scale(1.02);
+        }
+
+        .drop-zone.correct {
+            background: #D1FAE5;
+            border-color: var(--accent-green);
+            border-style: solid;
+        }
+
+        .drop-zone.incorrect {
+            background: #FEE2E2;
+            border-color: #EF4444;
+            border-style: solid;
+        }
+
+        .drop-zone-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .quiz-result {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: none;
+        }
+
+        .quiz-result.show {
+            display: block;
+        }
+
+        .check-button {
+            display: block;
+            margin: 2rem auto;
+            padding: 1rem 3rem;
+            background: var(--accent-green);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .check-button:hover {
+            background: #059669;
+            transform: scale(1.05);
+        }
+
+        /* ============================
+           FOOTER
+           ============================ */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-content p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-orange);
+            transform: translateY(-3px);
+        }
+
+        /* ============================
+           ANIMATIONS
+           ============================ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================
+           RESPONSIVE DESIGN
+           ============================ */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .hero-section p {
+                font-size: 1rem;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .detail-title {
+                font-size: 2rem;
+            }
+
+            main {
+                padding: 1rem;
+            }
+
+            .course-detail {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section h1 {
+                font-size: 1.75rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .drag-items-container,
+            .drop-zones-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- ============================
+         HEADER & NAVIGATION
+         ============================ -->
+    <header>
+        <nav>
+            <a href="#" class="logo">EduPortal</a>
+            <ul class="nav-links">
+                <li><a href="#" id="navHome">Home</a></li>
+                <li><a href="#" id="navCourses">Courses</a></li>
+                <li><a href="#" id="navAbout">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ============================
+         MAIN CONTENT
+         ============================ -->
+    <main>
+        <!-- HOME VIEW (Hero + Courses Grid) -->
+        <div id="homeView">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <h1>Unlock Your Potential</h1>
+                <p>Embark on a journey of knowledge and discovery. Choose from our diverse range of courses designed to elevate your skills and broaden your horizons.</p>
+            </section>
+
+            <!-- Courses Grid Section -->
+            <section class="courses-section">
+                <h2 class="section-title">Explore Our Courses</h2>
+                <div class="course-grid" id="courseGrid">
+                    <!-- Course cards will be generated by JavaScript -->
+                </div>
+            </section>
+        </div>
+
+        <!-- COURSE DETAIL VIEW (Initially Hidden) -->
+        <section id="courseDetailView" class="course-detail">
+            <div class="detail-header">
+                <h2 class="detail-title" id="detailTitle"></h2>
+                <button class="back-button" id="backButton">← Back to Courses</button>
+            </div>
+            <div class="detail-content" id="detailContent"></div>
+            <div id="interactiveContent"></div>
+        </section>
+    </main>
+
+    <!-- ============================
+         FOOTER
+         ============================ -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 EduPortal. All rights reserved.</p>
+            <p>Empowering learners worldwide with quality education.</p>
+            <div class="social-links">
+                <a href="#" title="Facebook">📘</a>
+                <a href="#" title="Twitter">🐦</a>
+                <a href="#" title="Instagram">📷</a>
+                <a href="#" title="LinkedIn">💼</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- External JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>
+            {
+                id: 'physics',
+                title: 'Physics',
+                icon: '⚛️',
+                description: 'Explore the fundamental laws of nature, from motion to energy.',
+                fullDescription: 'Dive into the fascinating world of physics! Learn about mechanics, thermodynamics, electromagnetism, and more. Watch our interactive projectile motion simulation below.'
+            },
+            {
+                id: 'mathematics',
+                title: 'Mathematics',
+                icon: '📐',
+                description: 'Master the language of numbers, patterns, and logical reasoning.',
+                fullDescription: 'Mathematics is the foundation of science and technology. From algebra to calculus, develop your analytical thinking and problem-solving skills.'
+            },
+            {
+                id: 'chemistry',
+                title: 'Chemistry',
+                icon: '🧪',
+                description: 'Discover the composition, properties, and reactions of matter.',
+                fullDescription: 'Chemistry bridges physics and biology. Learn about atoms, molecules, chemical reactions, and the periodic table. Understand the world at a molecular level.'
+            },
+            {
+                id: 'computing',
+                title: 'Thinking Computationally',
+                icon: '💻',
+                description: 'Develop problem-solving skills through computational thinking.',
+                fullDescription: 'Learn to think like a computer scientist! Master algorithms, data structures, and logical thinking. Try our interactive drag-and-drop quiz below to test your knowledge.'
+            },
+            {
+                id: 'digital-ai',
+                title: 'Digital and AI Literacy',
+                icon: '🤖',
+                description: 'Navigate the digital world and understand artificial intelligence.',
+                fullDescription: 'In our AI-driven world, digital literacy is essential. Learn about machine learning, data privacy, digital citizenship, and the ethical implications of technology.'
+            },
+            {
+                id: 'sports',
+                title: 'Sports',
+                icon: '⚽',
+                description: 'Build physical fitness, teamwork, and sportsmanship.',
+                fullDescription: 'Physical education is crucial for holistic development. Engage in various sports, learn about nutrition, fitness, and the importance of an active lifestyle.'
+            },
+            {
+                id: 'pancasila',
+                title: 'Pancasila',
+                icon: '🇮🇩',
+                description: 'Understand Indonesia\'s philosophical foundation and values.',
+                fullDescription: 'Pancasila is the ideological foundation of Indonesia. Learn about its five principles: belief in God, humanitarianism, national unity, democracy, and social justice.'
+            },
+            {
+                id: 'bahasa',
+                title: 'Bahasa Indonesia',
+                icon: '📚',
+                description: 'Master the Indonesian language and its rich literature.',
+                fullDescription: 'Bahasa Indonesia is the unifying language of the archipelago. Develop your reading, writing, and communication skills while exploring Indonesian literature and culture.'
+            },
+            {
+                id: 'english',
+                title: 'English',
+                icon: '🌍',
+                description: 'Achieve fluency in the global language of communication.',
+                fullDescription: 'English opens doors to global opportunities. Improve your grammar, vocabulary, speaking, and writing skills. Engage with international literature and media.'
+            }
+        ];
+
+        // ============================
+        // VIEW MANAGEMENT
+        // ============================
+        const homeView = document.getElementById('homeView');
+        const detailView = document.getElementById('courseDetailView');
+        const detailTitle = document.getElementById('detailTitle');
+        const detailContent = document.getElementById('detailContent');
+        const interactiveContent = document.getElementById('interactiveContent');
+        const backButton = document.getElementById('backButton');
+        const courseGrid = document.getElementById('courseGrid');
+
+        // Function to show home view
+        function showHomeView() {
+            homeView.classList.remove('hidden');
+            detailView.classList.remove('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Function to show course detail view
+        function showCourseDetail(course) {
+            homeView.classList.add('hidden');
+            detailView.classList.add('active');
+            detailTitle.textContent = course.icon + ' ' + course.title;
+            detailContent.textContent = course.fullDescription;
+            
+            // Clear previous interactive content
+            interactiveContent.innerHTML = '';
+            
+            // Add interactive content based on course
+            if (course.id === 'physics') {
+                createPhysicsCanvas();
+            } else if (course.id === 'computing') {
+                createDragDropQuiz();
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============================
+        // GENERATE COURSE CARDS
+        // ============================
+        function generateCourseCards() {
+            courseGrid.innerHTML = '';
+            courses.forEach(course => {
+                const card = document.createElement('article');
+                card.className = 'course-card';
+                card.innerHTML = `
+                    <div class="course-icon">${course.icon}</div>
+                    <h3 class="course-title">${course.title}</h3>
+                    <p class="course-description">${course.description}</p>
+                    <button class="course-button">Learn More</button>
+                `;
+                
+                // Add click event to show course details
+                card.addEventListener('click', () => showCourseDetail(course));
+                
+                courseGrid.appendChild(card);
+            });
+        }
+
+        // ============================
+        // PHYSICS CANVAS ANIMATION
+        // ============================
+        function createPhysicsCanvas() {
+            interactiveContent.innerHTML = `
+                <div class="canvas-container">
+                    <h3 style="margin-bottom: 1rem; color: var(--primary-blue);">Interactive Projectile Motion Simulation</h3>
+                    <canvas id="physicsCanvas" width="700" height="400"></canvas>
+                    <div class="canvas-controls">
+                        <button class="canvas-button" id="launchBtn">🚀 Launch</button>
+                        <button class="canvas-button reset" id="resetBtn">🔄 Reset</button>
+                    </div>
+                </div>
+            `;
+
+            const canvas = document.getElementById('physicsCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Animation variables
+            let animationId;
+            let ball = {
+                x: 50,
+                y: canvas.height - 50,
+                radius: 15,
+                vx: 8,
+                vy: -15,
+                gravity: 0.5,
+                isLaunched: false
+            };
+
+            // Draw the ground and launch pad
+            function drawScene() {
+                // Sky gradient
+                const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                gradient.addColorStop(0, '#E0F2FE');
+                gradient.addColorStop(1, '#F8FAFC');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Ground
+                ctx.fillStyle = '#10B981';
+                ctx.fillRect(0, canvas.height - 30, canvas.width, 30);
+
+                // Launch pad
+                ctx.fillStyle = '#64748B';
+                ctx.fillRect(30, canvas.height - 60, 40, 30);
+            }
+
+            // Draw the ball
+            function drawBall() {
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#F59E0B';
+                ctx.fill();
+                ctx.strokeStyle = '#D97706';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                ctx.closePath();
+
+                // Add highlight
+                ctx.beginPath();
+                ctx.arc(ball.x - 5, ball.y - 5, 5, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            // Animation loop
+            function animate() {
+                drawScene();
+                drawBall();
+
+                if (ball.isLaunched) {
+                    // Update position
+                    ball.x += ball.vx;
+                    ball.y += ball.vy;
+                    ball.vy += ball.gravity;
+
+                    // Bounce off bottom
+                    if (ball.y + ball.radius > canvas.height - 30) {
+                        ball.y = canvas.height - 30 - ball.radius;
+                        ball.vy *= -0.7; // Bounce with energy loss
+                        ball.vx *= 0.9; // Friction
+                    }
+
+                    // Bounce off walls
+                    if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+                        ball.vx *= -0.7;
+                        ball.x = ball.x + ball.radius > canvas.width ? canvas.width - ball.radius : ball.radius;
+                    }
+
+                    // Stop if energy is too low
+                    if (Math.abs(ball.vy) < 0.5 && ball.y > canvas.height - 50) {
+                        ball.isLaunched = false;
+                        ball.vy = 0;
+                        ball.vx = 0;
+                    }
+
+                    animationId = requestAnimationFrame(animate);
+                } else {
+                    cancelAnimationFrame(animationId);
+                }
+            }
+
+            // Initial draw
+            drawScene();
+            drawBall();
+
+            // Launch button
+            document.getElementById('launchBtn').addEventListener('click', () => {
+                if (!ball.isLaunched) {
+                    ball.isLaunched = true;
+                    ball.vx = 8;
+                    ball.vy = -15;
+                    animate();
+                }
+            });
+
+            // Reset button
+            document.getElementById('resetBtn').addEventListener('click', () => {
+                cancelAnimationFrame(animationId);
+                ball = {
+                    x: 50,
+                    y: canvas.height - 50,
+                    radius: 15,
+                    vx: 8,
+                    vy: -15,
+                    gravity: 0.5,
+                    isLaunched: false
+                };
+                drawScene();
+                drawBall();
+            });
+        }
+
+        // ============================
+        // DRAG & DROP QUIZ
+        // ============================
+        function createDragDropQuiz() {
+            const quizData = [
+                { id: 'sorting', text: 'Sorting', target: 'definition1', correct: 'definition1' },
+                { id: 'searching', text: 'Searching', target: 'definition2', correct: 'definition2' },
+                { id: 'recursion', text: 'Recursion', target: 'definition3', correct: 'definition3' }
+            ];
+
+            const definitions = [
+                { id: 'definition1', text: 'Arranging data in order' },
+                { id: 'definition2', text: 'Finding specific data' },
+                { id: 'definition3', text: 'Function calling itself' }
+            ];
+
+            interactiveContent.innerHTML = `
+                <div class="quiz-container">
+                    <h3 style="margin-bottom: 1rem; color: var(--primary-blue);">Drag & Drop Quiz: Match the Algorithm to Definition</h3>
+                    <div class="quiz-instructions">
+                        <strong>Instructions:</strong> Drag each algorithm concept from the left and drop it onto its correct definition on the right.
+                    </div>
+                    
+                    <h4 style="margin-bottom: 1rem;">Algorithm Concepts:</h4>
+                    <div class="drag-items-container" id="dragItems"></div>
+                    
+                    <h4 style="margin: 2rem 0 1rem;">Definitions:</h4>
+                    <div class="drop-zones-container" id="dropZones"></div>
+                    
+                    <button class="check-button" id="checkAnswers">Check Answers</button>
+                    <div class="quiz-result" id="quizResult"></div>
+                </div>
+            `;
+
+            const dragItemsContainer = document.getElementById('dragItems');
+            const dropZonesContainer = document.getElementById('dropZones');
+
+            // Create draggable items
+            quizData.forEach(item => {
+                const dragItem = document.createElement('div');
+                dragItem.className = 'drag-item';
+                dragItem.draggable = true;
+                dragItem.id = item.id;
+                dragItem.textContent = item.text;
+                dragItem.dataset.correct = item.correct;
+
+                dragItem.addEventListener('dragstart', handleDragStart);
+                dragItem.addEventListener('dragend', handleDragEnd);
+
+                dragItemsContainer.appendChild(dragItem);
+            });
+
+            // Create drop zones
+            definitions.forEach(def => {
+                const dropZone = document.createElement('div');
+                dropZone.className = 'drop-zone';
+                dropZone.id = def.id;
+                dropZone.innerHTML = `<div class="drop-zone-label">${def.text}</div>`;
+
+                dropZone.addEventListener('dragover', handleDragOver);
+                dropZone.addEventListener('drop', handleDrop);
+                dropZone.addEventListener('dragleave', handleDragLeave);
+
+                dropZonesContainer.appendChild(dropZone);
+            });
+
+            // Drag and drop handlers
+            let draggedElement = null;
+
+            function handleDragStart(e) {
+                draggedElement = this;
+                this.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', this.innerHTML);
+            }
+
+            function handleDragEnd(e) {
+                this.classList.remove('dragging');
+            }
+
+            function handleDragOver(e) {
+                if (e.preventDefault) {
+                    e.preventDefault();
+                }
+                e.dataTransfer.dropEffect = 'move';
+                this.classList.add('drag-over');
+                return false;
+            }
+
+            function handleDragLeave(e) {
+                this.classList.remove('drag-over');
+            }
+
+            function handleDrop(e) {
+                if (e.stopPropagation) {
+                    e.stopPropagation();
+                }
+                this.classList.remove('drag-over');
+
+                if (draggedElement) {
+                    // Remove any existing dragged item in this zone
+                    const existingItem = this.querySelector('.drag-item');
+                    if (existingItem) {
+                        dragItemsContainer.appendChild(existingItem);
+                    }
+
+                    // Add the new item
+                    this.appendChild(draggedElement);
+                }
+
+                return false;
+            }
+
+            // Check answers
+            document.getElementById('checkAnswers').addEventListener('click', () => {
+                let correct = 0;
+                let total = quizData.length;
+
+                definitions.forEach(def => {
+                    const zone = document.getElementById(def.id);
+                    const item = zone.querySelector('.drag-item');
+
+                    // Reset classes
+                    zone.classList.remove('correct', 'incorrect');
+
+                    if (item && item.dataset.correct === def.id) {
+                        zone.classList.add('correct');
+                        correct++;
+                    } else if (item) {
+                        zone.classList.add('incorrect');
+                    }
+                });
+
+                const resultDiv = document.getElementById('quizResult');
+                resultDiv.classList.add('show');
+                
+                if (correct === total) {
+                    resultDiv.textContent = `🎉 Perfect! You got all ${total} correct!`;
+                    resultDiv.style.color = '#10B981';
+                } else {
+                    resultDiv.textContent = `You got ${correct} out of ${total} correct. Try again!`;
+                    resultDiv.style.color = '#F59E0B';
+                }
+            });
+        }
+
+        // ============================
+        // EVENT LISTENERS
+        // ============================
+        
+        // Back button
+        backButton.addEventListener('click', showHomeView);
+
+        // Navigation links
+        document.getElementById('navHome').addEventListener('click', (e) => {
+            e.preventDefault();
+            showHomeView();
+        });
+
+        document.getElementById('navCourses').addEventListener('click', (e) => {
+            e.preventDefault();
+            showHomeView();
+            setTimeout(() => {
+                document.querySelector('.courses-section').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        });
+
+        document.getElementById('navAbout').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('EduPortal - Empowering learners worldwide with quality education since 2025.');
+        });
+
+        // ============================
+        // INITIALIZATION
+        // ============================
+        
+        // Generate course cards on page load
+        generateCourseCards();
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Log initialization
+        console.log('🎓 EduPortal initialized successfully!');
+        console.log(`📚 Loaded ${courses.length} courses`);
+    </script>
+</body>
+</html>
