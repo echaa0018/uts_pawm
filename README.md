@@ -75,19 +75,19 @@ Access the application at: `http://localhost:8000`
 ## Default Login Credentials
 
 **Admin User:**
-- Email: `admin.admin@neutradc.com`
+- Email: `admin@houshou.com`
 - Password: `password`
 - Role: Admin (Full Access)
 
 **Employee User:**
-- Email: `employee.user@neutradc.com`
+- Email: `teacher@houshou.com`
 - Password: `password`
-- Role: Employee
+- Role: Teacher (Full Access, future tbc)
 
 **Stakeholder User:**
-- Email: `stakeholder.user@neutradc.com`
+- Email: `student@houshou.com`
 - Password: `password`
-- Role: Stakeholder
+- Role: Student (Full Access, future tbc)
 
 ⚠️ **Change these credentials in production!**
 
