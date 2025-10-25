@@ -1,6 +1,107 @@
 // ============================
-// COURSE DATA
+// PERFORMANCE & ACCESSIBILITY UTILITIES
 // ============================
+const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
+
+const throttle = (func, limit) => {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+};
+
+// ============================
+// LOADING STATE MANAGEMENT
+// ============================
+const LoadingManager = {
+    show(element) {
+        if (element) {
+            element.classList.add('loading');
+        }
+    },
+    
+    hide(element) {
+        if (element) {
+            element.classList.remove('loading');
+        }
+    },
+    
+    showSpinner(container) {
+        const spinner = document.createElement('div');
+        spinner.className = 'spinner';
+        spinner.setAttribute('aria-label', 'Loading content');
+        container.appendChild(spinner);
+        return spinner;
+    },
+    
+    hideSpinner(spinner) {
+        if (spinner && spinner.parentNode) {
+            spinner.parentNode.removeChild(spinner);
+        }
+    }
+};
+
+// ============================
+// ACCESSIBILITY HELPERS
+// ============================
+const AccessibilityManager = {
+    announce(message) {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.className = 'sr-only';
+        announcement.textContent = message;
+        document.body.appendChild(announcement);
+        
+        setTimeout(() => {
+            document.body.removeChild(announcement);
+        }, 1000);
+    },
+    
+    trapFocus(element) {
+        const focusableElements = element.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        
+        element.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                if (e.shiftKey) {
+                    if (document.activeElement === firstElement) {
+                        lastElement.focus();
+                        e.preventDefault();
+                    }
+                } else {
+                    if (document.activeElement === lastElement) {
+                        firstElement.focus();
+                        e.preventDefault();
+                    }
+                }
+            }
+        });
+    },
+    
+    updateAriaHidden(element, isHidden) {
+        element.setAttribute('aria-hidden', isHidden);
+    }
+};
 const courses = [
     {
         id: 'physics',
@@ -80,29 +181,61 @@ const courseGrid = document.getElementById('courseGrid');
 
 // Function to show home view
 function showHomeView() {
-    homeView.classList.remove('hidden');
-    detailView.classList.remove('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    LoadingManager.show(homeView);
+    
+    setTimeout(() => {
+        homeView.classList.remove('hidden');
+        detailView.classList.remove('active');
+        AccessibilityManager.updateAriaHidden(homeView, false);
+        AccessibilityManager.updateAriaHidden(detailView, true);
+        
+        // Update navigation aria-current
+        document.querySelectorAll('[role="menuitem"]').forEach(item => {
+            item.removeAttribute('aria-current');
+        });
+        document.getElementById('navHome').setAttribute('aria-current', 'page');
+        
+        LoadingManager.hide(homeView);
+        AccessibilityManager.announce('Returned to course selection');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 150);
 }
 
 // Function to show course detail view
 function showCourseDetail(course) {
-    homeView.classList.add('hidden');
-    detailView.classList.add('active');
-    detailTitle.textContent = course.icon + ' ' + course.title;
-    detailContent.textContent = course.fullDescription;
+    LoadingManager.show(detailView);
+    const spinner = LoadingManager.showSpinner(interactiveContent);
     
-    // Clear previous interactive content
-    interactiveContent.innerHTML = '';
-    
-    // Add interactive content based on course
-    if (course.id === 'physics') {
-        createPhysicsCanvas();
-    } else if (course.id === 'computing') {
-        createDragDropQuiz();
-    }
-    
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+        homeView.classList.add('hidden');
+        detailView.classList.add('active');
+        AccessibilityManager.updateAriaHidden(homeView, true);
+        AccessibilityManager.updateAriaHidden(detailView, false);
+        
+        // Update navigation aria-current
+        document.querySelectorAll('[role="menuitem"]').forEach(item => {
+            item.removeAttribute('aria-current');
+        });
+        
+        detailTitle.textContent = course.icon + ' ' + course.title;
+        detailContent.textContent = course.fullDescription;
+        
+        // Clear previous interactive content
+        interactiveContent.innerHTML = '';
+        
+        // Add interactive content based on course
+        if (course.id === 'physics') {
+            createPhysicsCanvas();
+        } else if (course.id === 'computing') {
+            createDragDropQuiz();
+        }
+        
+        LoadingManager.hide(detailView);
+        LoadingManager.hideSpinner(spinner);
+        AccessibilityManager.announce(`Now viewing ${course.title} course details`);
+        AccessibilityManager.trapFocus(detailView);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 200);
 }
 
 // ============================
@@ -110,18 +243,30 @@ function showCourseDetail(course) {
 // ============================
 function generateCourseCards() {
     courseGrid.innerHTML = '';
-    courses.forEach(course => {
+    courses.forEach((course, index) => {
         const card = document.createElement('article');
         card.className = 'course-card';
+        card.setAttribute('role', 'gridcell');
+        card.setAttribute('aria-label', `${course.title} course: ${course.description}`);
+        card.setAttribute('tabindex', '0');
         card.innerHTML = `
-            <div class="course-icon">${course.icon}</div>
+            <div class="course-icon" aria-hidden="true">${course.icon}</div>
             <h3 class="course-title">${course.title}</h3>
             <p class="course-description">${course.description}</p>
-            <button class="course-button">Learn More</button>
+            <button class="course-button" aria-describedby="course-desc-${index}">Learn More</button>
+            <div id="course-desc-${index}" class="sr-only">Click to learn more about ${course.title}</div>
         `;
         
         // Add click event to show course details
         card.addEventListener('click', () => showCourseDetail(course));
+        
+        // Add keyboard support
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                showCourseDetail(course);
+            }
+        });
         
         courseGrid.appendChild(card);
     });
@@ -134,10 +279,11 @@ function createPhysicsCanvas() {
     interactiveContent.innerHTML = `
         <div class="canvas-container">
             <h3 style="margin-bottom: 1rem; color: var(--primary-blue);">Interactive Projectile Motion Simulation</h3>
-            <canvas id="physicsCanvas" width="700" height="400"></canvas>
+            <p style="margin-bottom: 1rem; color: var(--text-medium);">Watch the ball follow the laws of physics as it moves through the air. Click Launch to start the simulation.</p>
+            <canvas id="physicsCanvas" width="700" height="400" role="img" aria-label="Physics simulation showing projectile motion with a bouncing ball"></canvas>
             <div class="canvas-controls">
-                <button class="canvas-button" id="launchBtn">🚀 Launch</button>
-                <button class="canvas-button reset" id="resetBtn">🔄 Reset</button>
+                <button class="canvas-button" id="launchBtn" aria-label="Launch the ball">🚀 Launch</button>
+                <button class="canvas-button reset" id="resetBtn" aria-label="Reset the simulation">🔄 Reset</button>
             </div>
         </div>
     `;
@@ -282,17 +428,17 @@ function createDragDropQuiz() {
         <div class="quiz-container">
             <h3 style="margin-bottom: 1rem; color: var(--primary-blue);">Drag & Drop Quiz: Match the Algorithm to Definition</h3>
             <div class="quiz-instructions">
-                <strong>Instructions:</strong> Drag each algorithm concept from the left and drop it onto its correct definition on the right.
+                <strong>Instructions:</strong> Drag each algorithm concept from the left and drop it onto its correct definition on the right. You can also use keyboard navigation with Tab and Enter keys.
             </div>
             
             <h4 style="margin-bottom: 1rem;">Algorithm Concepts:</h4>
-            <div class="drag-items-container" id="dragItems"></div>
+            <div class="drag-items-container" id="dragItems" role="list" aria-label="Draggable algorithm concepts"></div>
             
             <h4 style="margin: 2rem 0 1rem;">Definitions:</h4>
-            <div class="drop-zones-container" id="dropZones"></div>
+            <div class="drop-zones-container" id="dropZones" role="list" aria-label="Drop zones for algorithm definitions"></div>
             
-            <button class="check-button" id="checkAnswers">Check Answers</button>
-            <div class="quiz-result" id="quizResult"></div>
+            <button class="check-button" id="checkAnswers" aria-describedby="quiz-instructions">Check Answers</button>
+            <div class="quiz-result" id="quizResult" role="status" aria-live="polite"></div>
         </div>
     `;
 
@@ -307,9 +453,20 @@ function createDragDropQuiz() {
         dragItem.id = item.id;
         dragItem.textContent = item.text;
         dragItem.dataset.correct = item.correct;
+        dragItem.setAttribute('role', 'listitem');
+        dragItem.setAttribute('aria-label', `Draggable item: ${item.text}`);
+        dragItem.setAttribute('tabindex', '0');
 
         dragItem.addEventListener('dragstart', handleDragStart);
         dragItem.addEventListener('dragend', handleDragEnd);
+        
+        // Add keyboard support for drag items
+        dragItem.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                AccessibilityManager.announce(`${item.text} selected. Use arrow keys to navigate to drop zones.`);
+            }
+        });
 
         dragItemsContainer.appendChild(dragItem);
     });
@@ -320,10 +477,21 @@ function createDragDropQuiz() {
         dropZone.className = 'drop-zone';
         dropZone.id = def.id;
         dropZone.innerHTML = `<div class="drop-zone-label">${def.text}</div>`;
+        dropZone.setAttribute('role', 'listitem');
+        dropZone.setAttribute('aria-label', `Drop zone for: ${def.text}`);
+        dropZone.setAttribute('tabindex', '0');
 
         dropZone.addEventListener('dragover', handleDragOver);
         dropZone.addEventListener('drop', handleDrop);
         dropZone.addEventListener('dragleave', handleDragLeave);
+        
+        // Add keyboard support for drop zones
+        dropZone.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                AccessibilityManager.announce(`Drop zone: ${def.text}`);
+            }
+        });
 
         dropZonesContainer.appendChild(dropZone);
     });
@@ -401,10 +569,15 @@ function createDragDropQuiz() {
         if (correct === total) {
             resultDiv.textContent = `🎉 Perfect! You got all ${total} correct!`;
             resultDiv.style.color = '#10B981';
+            AccessibilityManager.announce(`Excellent! You got all ${total} questions correct!`);
         } else {
             resultDiv.textContent = `You got ${correct} out of ${total} correct. Try again!`;
             resultDiv.style.color = '#F59E0B';
+            AccessibilityManager.announce(`You got ${correct} out of ${total} questions correct. Try again!`);
         }
+        
+        // Focus on result for screen readers
+        resultDiv.focus();
     });
 }
 
@@ -415,7 +588,7 @@ function createDragDropQuiz() {
 // Back button
 backButton.addEventListener('click', showHomeView);
 
-// Navigation links
+// Navigation links with improved accessibility
 document.getElementById('navHome').addEventListener('click', (e) => {
     e.preventDefault();
     showHomeView();
@@ -425,39 +598,93 @@ document.getElementById('navCourses').addEventListener('click', (e) => {
     e.preventDefault();
     showHomeView();
     setTimeout(() => {
-        document.querySelector('.courses-section').scrollIntoView({ behavior: 'smooth' });
+        const coursesSection = document.querySelector('.courses-section');
+        if (coursesSection) {
+            coursesSection.scrollIntoView({ behavior: 'smooth' });
+            AccessibilityManager.announce('Scrolled to courses section');
+        }
     }, 100);
 });
 
 document.getElementById('navAbout').addEventListener('click', (e) => {
     e.preventDefault();
-    alert('EduPortal - Empowering learners worldwide with quality education since 2025.');
+    AccessibilityManager.announce('EduPortal - Empowering learners worldwide with quality education since 2025.');
+    // Use a more accessible alternative to alert
+    const aboutModal = document.createElement('div');
+    aboutModal.innerHTML = `
+        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; display: flex; align-items: center; justify-content: center;">
+            <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 400px; text-align: center;">
+                <h3>About EduPortal</h3>
+                <p>Empowering learners worldwide with quality education since 2025.</p>
+                <button onclick="this.parentElement.parentElement.remove()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: var(--primary-blue); color: white; border: none; border-radius: 5px;">Close</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(aboutModal);
+    AccessibilityManager.trapFocus(aboutModal);
 });
 
 // ============================
 // INITIALIZATION
 // ============================
 
-// Generate course cards on page load
-generateCourseCards();
+// Wait for DOM to be ready
+function initializeApp() {
+    // Generate course cards on page load
+    generateCourseCards();
 
-// Add smooth scroll behavior
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        if (href !== '#') {
+    // Add smooth scroll behavior with throttling for performance
+    const smoothScrollHandler = throttle((e) => {
+        const href = e.target.getAttribute('href');
+        if (href && href !== '#') {
             e.preventDefault();
             const target = document.querySelector(href);
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth' });
             }
         }
-    });
-});
+    }, 100);
 
-// Log initialization
-console.log('🎓 EduPortal initialized successfully!');
-console.log(`📚 Loaded ${courses.length} courses`);
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', smoothScrollHandler);
+    });
+
+    // Add keyboard navigation support
+    document.addEventListener('keydown', (e) => {
+        // ESC key to go back from detail view
+        if (e.key === 'Escape' && detailView.classList.contains('active')) {
+            showHomeView();
+        }
+    });
+
+    // Add resize handler for responsive canvas
+    const resizeHandler = debounce(() => {
+        const canvas = document.getElementById('physicsCanvas');
+        if (canvas) {
+            // Adjust canvas size on resize
+            const container = canvas.parentElement;
+            if (container && window.innerWidth < 768) {
+                canvas.width = Math.min(700, container.offsetWidth - 40);
+            }
+        }
+    }, 250);
+
+    window.addEventListener('resize', resizeHandler);
+
+    // Log initialization
+    console.log('🎓 EduPortal initialized successfully!');
+    console.log(`📚 Loaded ${courses.length} courses`);
+    
+    // Announce successful loading to screen readers
+    AccessibilityManager.announce('EduPortal loaded successfully. Use Tab to navigate through courses.');
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    initializeApp();
+}
 
 // Export for testing (Node.js environment)
 if (typeof module !== 'undefined' && module.exports) {

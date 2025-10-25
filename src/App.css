@@ -1,0 +1,388 @@
+/* ============================
+   HEADER & NAVIGATION
+   ============================ */
+header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-medium);
+  font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary-blue);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--primary-blue);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-links a[aria-current="page"] {
+  color: var(--primary-blue);
+}
+
+.nav-links a[aria-current="page"]::after {
+  width: 100%;
+}
+
+/* ============================
+   HERO SECTION
+   ============================ */
+.hero-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+  border-radius: 20px;
+  color: white;
+  margin-bottom: 3rem;
+  box-shadow: var(--shadow-lg);
+  animation: fadeInDown 0.8s ease;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hero-section p {
+  font-size: 1.25rem;
+  font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0.95;
+}
+
+/* ============================
+   COURSE GRID SECTION
+   ============================ */
+.courses-section {
+  animation: fadeInUp 0.8s ease;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* Glassmorphism Course Cards */
+.course-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.course-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary-blue), var(--accent-orange));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-xl);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.course-card:hover::before {
+  transform: scaleX(1);
+}
+
+.course-card:focus {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+
+.course-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.course-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.course-description {
+  font-size: 0.95rem;
+  color: var(--text-medium);
+  line-height: 1.5;
+}
+
+.course-button {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-blue);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.course-button:hover {
+  background: var(--primary-blue-dark);
+  transform: scale(1.05);
+}
+
+/* ============================
+   COURSE DETAIL VIEW
+   ============================ */
+.course-detail {
+  animation: fadeIn 0.5s ease;
+  background: white;
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.detail-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+}
+
+.back-button {
+  padding: 0.75rem 2rem;
+  background: var(--text-medium);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.back-button:hover {
+  background: var(--text-dark);
+  transform: scale(1.05);
+}
+
+.detail-content {
+  font-size: 1.1rem;
+  color: var(--text-medium);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+/* ============================
+   FOOTER
+   ============================ */
+footer {
+  background: var(--text-dark);
+  color: white;
+  padding: 3rem 2rem;
+  margin-top: 4rem;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-content p {
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.social-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  color: var(--accent-orange);
+  transform: translateY(-3px);
+}
+
+/* ============================
+   RESPONSIVE DESIGN
+   ============================ */
+@media (max-width: 1024px) {
+  .course-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .hero-section h1 {
+    font-size: 2.5rem;
+  }
+  
+  .detail-title {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-section {
+    padding: 3rem 1.5rem;
+  }
+
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+
+  .hero-section p {
+    font-size: 1rem;
+  }
+
+  .course-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .detail-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .detail-title {
+    font-size: 2rem;
+  }
+
+  .course-detail {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 2rem 1rem;
+  }
+  
+  .hero-section h1 {
+    font-size: 1.75rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .course-card {
+    padding: 1.5rem;
+  }
+  
+  .course-icon {
+    font-size: 2.5rem;
+  }
+  
+  .course-title {
+    font-size: 1.25rem;
+  }
+  
+  .detail-title {
+    font-size: 1.75rem;
+  }
+  
+  .course-detail {
+    padding: 1.5rem 1rem;
+  }
+}
