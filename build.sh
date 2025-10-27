@@ -10,6 +10,15 @@ npm ci --include=dev
 echo "Building assets..."
 npm run build
 
+echo "Verifying build output..."
+if [ -d "public/build" ]; then
+    echo "✅ Build directory created successfully"
+    ls -la public/build
+else
+    echo "❌ ERROR: Build directory not found!"
+    exit 1
+fi
+
 echo "Caching config..."
 php artisan config:cache --no-interaction
 
