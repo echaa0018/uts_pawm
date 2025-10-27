@@ -3,17 +3,16 @@ nixPkgs = ['...', 'postgresql']
 
 [phases.install]
 cmds = [
-    'composer install --no-dev --optimize-autoloader --no-interaction'
+    'composer install --no-dev --optimize-autoloader --no-interaction',
+    'npm ci --include=dev'
 ]
 
 [phases.build]
 cmds = [
-    'npm install',
     'npm run build',
-    'php artisan config:cache',
-    'php artisan route:cache',
-    'php artisan view:cache'
+    'ls -la public/build || echo "Build directory not found!"',
+    'ls -la public/build/manifest.json || echo "Manifest not found!"'
 ]
 
 [start]
-cmd = 'php artisan serve --host=0.0.0.0 --port=${PORT:-8080}'
+cmd = 'bash start.sh'

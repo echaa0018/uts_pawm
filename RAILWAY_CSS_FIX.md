@@ -4,39 +4,48 @@
 CSS and JavaScript assets are not loading on Railway deployment, causing the website to look broken.
 
 ## Root Cause
-Laravel uses Vite to compile assets. The compiled assets are stored in `public/build/` directory, which is:
-- Gitignored (correct for development)
-- Must be built during Railway deployment
-- Needs proper configuration to build during deployment
+Laravel uses Vite to compile assets. The compiled assets are stored in `public/build/` directory with a `manifest.json` file. When this manifest is missing or Laravel can't find it, NO CSS/JS files will load.
 
-## Solution Applied
+## Critical Fixes Applied
 
-### 1. Updated `nixpacks.toml`
-The build phase now:
-- Installs npm dependencies
-- Runs `npm run build` to compile assets
-- Caches Laravel config, routes, and views
+### 1. Updated `AppServiceProvider.php`
+Forces Vite to use the production manifest file in production environment.
 
-### 2. Updated `deploy.sh`
-Added verification step to check if build directory exists after deployment.
+### 2. Updated `nixpacks.toml`
+- Moved npm install to install phase
+- Added verification commands to check if build succeeded
+- Uses new `start.sh` script that verifies assets before starting
 
-### 3. Updated `build.sh`
-Added verification to ensure assets are built correctly.
+### 3. Created `start.sh`
+Emergency startup script that:
+- Verifies `public/build` exists
+- Verifies `manifest.json` exists
+- Rebuilds assets if missing
+- Runs migrations and optimizations
+- Starts the server
 
-## Railway Environment Variables Required
+### 4. Added `ASSET_URL` to environment variables
+Critical for production asset serving.
 
-Make sure these environment variables are set in Railway:
+## CRITICAL: Railway Environment Variables
 
-### Required Variables:
+### ⚠️ MUST SET THESE IN RAILWAY:
+
 ```bash
 APP_NAME=YourAppName
 APP_ENV=production
 APP_KEY=base64:your-generated-key-here
 APP_DEBUG=false
-APP_URL=https://your-app.railway.app
+APP_URL=https://your-actual-app.railway.app
+ASSET_URL=https://your-actual-app.railway.app
 ```
 
-### Database (provided by Railway PostgreSQL):
+**IMPORTANT:** 
+- `APP_URL` and `ASSET_URL` MUST match your actual Railway domain
+- MUST use `https://` not `http://`
+- NO trailing slash
+
+### Database (Railway PostgreSQL):
 ```bash
 DB_CONNECTION=pgsql
 DB_HOST=${{Postgres.PGHOST}}
@@ -44,13 +53,6 @@ DB_PORT=${{Postgres.PGPORT}}
 DB_DATABASE=${{Postgres.PGDATABASE}}
 DB_USERNAME=${{Postgres.PGUSER}}
 DB_PASSWORD=${{Postgres.PGPASSWORD}}
-```
-
-### Session & Cache:
-```bash
-SESSION_DRIVER=database
-CACHE_STORE=database
-QUEUE_CONNECTION=database
 ```
 
 ## Deployment Steps

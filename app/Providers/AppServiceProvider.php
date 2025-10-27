@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Vite;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Force Vite to use production build manifest in production
+        if (config('app.env') === 'production') {
+            Vite::useManifestFilename('manifest.json');
+            
+            // Prefetch DNS for faster asset loading
+            Vite::prefetch(concurrency: 3);
+        }
     }
 }
