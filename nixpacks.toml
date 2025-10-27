@@ -14,5 +14,21 @@ cmds = [
     'ls -la public/build/manifest.json || echo "Manifest not found!"'
 ]
 
+[phases.deploy]
+cmds = [
+    'echo "=== DEPLOY PHASE STARTING ==="',
+    'echo "Clearing config cache..."',
+    'php artisan config:clear || echo "Config clear failed"',
+    'echo "Running migrations..."',
+    'php artisan migrate --force --verbose || echo "Migration failed"',
+    'echo "Creating storage link..."',
+    'php artisan storage:link || echo "Storage link failed"',
+    'echo "Caching configuration..."',
+    'php artisan config:cache || echo "Config cache failed"',
+    'php artisan route:cache || echo "Route cache failed"',
+    'php artisan view:cache || echo "View cache failed"',
+    'echo "=== DEPLOY PHASE COMPLETE ==="'
+]
+
 [start]
-cmd = 'bash -c "php artisan config:clear && php artisan migrate --force && php artisan storage:link && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"'
+cmd = 'php artisan serve --host=0.0.0.0 --port=${PORT:-8080}'
