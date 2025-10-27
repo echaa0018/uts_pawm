@@ -136,12 +136,21 @@
         {{-- Menu --}}
         {{-- Menu --}}
         <x-menu class="text-xs space-y-0 p-1" active-bg-color="font-black" activate-by-route>
-            <x-menu-item title="Home" icon="o-home" link="{{ route('home') }}" />
+            <x-menu-item title="Home" icon="o-home" link="{{ route('home') }}" wire:navigate />
+            
+            {{-- Virtual Lab Section --}}
+            <x-menu-sub title="Virtual Lab" icon="o-beaker" link="{{ route('virtual-lab.index') }}">
+                <x-menu-item title="Overview" icon="o-home" link="{{ route('virtual-lab.index') }}" wire:navigate />
+                <x-menu-separator />
+                <x-menu-item title="Physics Lab" icon="o-bolt" link="{{ route('virtual-lab.physics') }}" wire:navigate />
+                <x-menu-item title="Math Lab" icon="o-calculator" link="{{ route('virtual-lab.math') }}" wire:navigate />
+                <x-menu-item title="Chemistry Lab" icon="o-beaker" link="{{ route('virtual-lab.chemistry') }}" wire:navigate />
+            </x-menu-sub>
             
             {{-- Administrator Section --}}
             <x-menu-sub title="Administrator" icon="o-cog-6-tooth" link="#">
-                <x-menu-item title="Users" icon="o-users" link="{{ route('user.index') }}" />
-                <x-menu-item title="Roles" icon="o-user-group" link="{{ route('role.index') }}" />
+                <x-menu-item title="Users" icon="o-users" link="{{ route('user.index') }}" wire:navigate />
+                <x-menu-item title="Roles" icon="o-user-group" link="{{ route('role.index') }}" wire:navigate />
             </x-menu-sub>
         </x-menu>
 
