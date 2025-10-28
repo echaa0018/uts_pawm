@@ -3,69 +3,93 @@
     
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
         {{-- Sidebar with Experiments --}}
-        <x-card class="lg:col-span-1">
-            <x-slot:title>
-                <div class="flex items-center gap-2">
-                    <x-icon name="o-beaker" class="w-5 h-5" />
+        <div class="card bg-base-100 shadow-xl lg:col-span-1">
+            <div class="card-body">
+                <h2 class="card-title text-base-content">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                    </svg>
                     Experiments
-                </div>
-            </x-slot:title>
+                </h2>
 
-            <x-menu class="text-xs space-y-1">
-                <x-menu-item 
-                    title="Molarity Calculator" 
-                    icon="o-beaker"
-                    wire:click="selectExperiment('molarity')"
-                    :active="$selectedExperiment === 'molarity'" />
-                
-                <x-menu-item 
-                    title="pH Calculator" 
-                    icon="o-beaker"
-                    wire:click="selectExperiment('ph')"
-                    :active="$selectedExperiment === 'ph'" />
-                
-                <x-menu-item 
-                    title="Ideal Gas Law" 
-                    icon="o-cloud"
-                    wire:click="selectExperiment('idealgas')"
-                    :active="$selectedExperiment === 'idealgas'" />
-                
-                <x-menu-item 
-                    title="Stoichiometry" 
-                    icon="o-scale"
-                    wire:click="selectExperiment('stoichiometry')"
-                    :active="$selectedExperiment === 'stoichiometry'" />
-                
-                <x-menu-item 
-                    title="Molecular Weight" 
-                    icon="o-calculator"
-                    wire:click="selectExperiment('molecular')"
-                    :active="$selectedExperiment === 'molecular'" />
-                
-                <x-menu-item 
-                    title="Periodic Table" 
-                    icon="o-table-cells"
-                    wire:click="selectExperiment('periodic')"
-                    :active="$selectedExperiment === 'periodic'" />
-                
-                <x-menu-item 
-                    title="Reaction Balancer" 
-                    icon="o-arrows-right-left"
-                    wire:click="selectExperiment('reaction')"
-                    :active="$selectedExperiment === 'reaction'" />
-            </x-menu>
-        </x-card>
+                <div class="menu text-sm space-y-1">
+                    <button 
+                        class="menu-item {{ $selectedExperiment === 'molarity' ? 'active' : '' }}"
+                        wire:click="selectExperiment('molarity')">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        </svg>
+                        Molarity Calculator
+                    </button>
+                    
+                    <button 
+                        class="menu-item {{ $selectedExperiment === 'ph' ? 'active' : '' }}"
+                        wire:click="selectExperiment('ph')">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        </svg>
+                        pH Calculator
+                    </button>
+                    
+                    <button 
+                        class="menu-item {{ $selectedExperiment === 'idealgas' ? 'active' : '' }}"
+                        wire:click="selectExperiment('idealgas')">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+                        </svg>
+                        Ideal Gas Law
+                    </button>
+                    
+                    <button 
+                        class="menu-item {{ $selectedExperiment === 'stoichiometry' ? 'active' : '' }}"
+                        wire:click="selectExperiment('stoichiometry')">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path>
+                        </svg>
+                        Stoichiometry
+                    </button>
+                    
+                    <button 
+                        class="menu-item {{ $selectedExperiment === 'molecular' ? 'active' : '' }}"
+                        wire:click="selectExperiment('molecular')">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                        Molecular Weight
+                    </button>
+                    
+                    <button 
+                        class="menu-item {{ $selectedExperiment === 'periodic' ? 'active' : '' }}"
+                        wire:click="selectExperiment('periodic')">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                        </svg>
+                        Periodic Table
+                    </button>
+                    
+                    <button 
+                        class="menu-item {{ $selectedExperiment === 'reaction' ? 'active' : '' }}"
+                        wire:click="selectExperiment('reaction')">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                        </svg>
+                        Reaction Balancer
+                    </button>
+                </div>
+            </div>
+        </div>
 
         {{-- Main Content Area --}}
-        <x-card class="lg:col-span-3">
+        <div class="card bg-base-300 shadow-xl lg:col-span-3">
+            <div class="card-body">
             @if($selectedExperiment === 'molarity')
                 {{-- Molarity Calculator --}}
-                <x-slot:title>
-                    <div class="flex items-center gap-2">
-                        <x-icon name="o-beaker" class="w-5 h-5" />
+                <h2 class="card-title text-base-content">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                    </svg>
                         Molarity Calculator
-                    </div>
-                </x-slot:title>
+                </h2>
 
                 <div class="space-y-4">
                     <x-alert icon="o-information-circle" class="alert-info">
@@ -120,12 +144,12 @@
 
             @elseif($selectedExperiment === 'ph')
                 {{-- pH Calculator --}}
-                <x-slot:title>
-                    <div class="flex items-center gap-2">
-                        <x-icon name="o-beaker" class="w-5 h-5" />
+                <h2 class="card-title text-base-content">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                    </svg>
                         pH Calculator
-                    </div>
-                </x-slot:title>
+                </h2>
 
                 <div class="space-y-4">
                     <x-alert icon="o-information-circle" class="alert-info">
@@ -210,12 +234,12 @@
 
             @elseif($selectedExperiment === 'idealgas')
                 {{-- Ideal Gas Law --}}
-                <x-slot:title>
-                    <div class="flex items-center gap-2">
-                        <x-icon name="o-cloud" class="w-5 h-5" />
+                <h2 class="card-title text-base-content">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+                    </svg>
                         Ideal Gas Law (PV = nRT)
-                    </div>
-                </x-slot:title>
+                </h2>
 
                 <div class="space-y-4">
                     <x-alert icon="o-information-circle" class="alert-info">
@@ -282,12 +306,12 @@
 
             @elseif($selectedExperiment === 'stoichiometry')
                 {{-- Stoichiometry Calculator --}}
-                <x-slot:title>
-                    <div class="flex items-center gap-2">
-                        <x-icon name="o-scale" class="w-5 h-5" />
-                        Stoichiometry Calculator
-                    </div>
-                </x-slot:title>
+                <h2 class="card-title text-base-content">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path>
+                    </svg>
+                    Stoichiometry Calculator
+                </h2>
 
                 <div class="space-y-4">
                     <x-alert icon="o-information-circle" class="alert-info">
@@ -371,12 +395,12 @@
 
             @elseif($selectedExperiment === 'molecular')
                 {{-- Molecular Weight Calculator --}}
-                <x-slot:title>
-                    <div class="flex items-center gap-2">
-                        <x-icon name="o-calculator" class="w-5 h-5" />
-                        Molecular Weight Calculator
-                    </div>
-                </x-slot:title>
+                <h2 class="card-title text-base-content">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                    </svg>
+                    Molecular Weight Calculator
+                </h2>
 
                 <div class="space-y-4">
                     <x-alert icon="o-information-circle" class="alert-info">
@@ -440,12 +464,12 @@
 
             @elseif($selectedExperiment === 'periodic')
                 {{-- Periodic Table --}}
-                <x-slot:title>
-                    <div class="flex items-center gap-2">
-                        <x-icon name="o-table-cells" class="w-5 h-5" />
-                        Periodic Table
-                    </div>
-                </x-slot:title>
+                <h2 class="card-title text-base-content">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                    </svg>
+                    Periodic Table
+                </h2>
 
                 <div class="space-y-4">
                     <x-alert icon="o-information-circle" class="alert-info">
@@ -495,12 +519,12 @@
 
             @elseif($selectedExperiment === 'reaction')
                 {{-- Reaction Balancer --}}
-                <x-slot:title>
-                    <div class="flex items-center gap-2">
-                        <x-icon name="o-arrows-right-left" class="w-5 h-5" />
-                        Reaction Balancer
-                    </div>
-                </x-slot:title>
+                <h2 class="card-title text-base-content">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                    </svg>
+                    Reaction Balancer
+                </h2>
 
                 <div class="space-y-4">
                     <x-alert icon="o-information-circle" class="alert-info">
@@ -570,6 +594,7 @@
                     @endif
                 </div>
             @endif
-        </x-card>
+            </div>
+        </div>
     </div>
 </div>

@@ -12,19 +12,6 @@ class Home extends Component
 
     // public $chart;
 
-    public array $myChart = [
-        'type' => 'pie',
-        'data' => [
-            'labels' => ['Mary', 'Joe', 'Ana'],
-            'datasets' => [
-                [
-                    'label' => '# of Votes',
-                    'data' => [12, 19, 3],
-                ]
-            ]
-        ]
-    ];
-
     public function mount()
     {
         // dd(getGeneralLocation());

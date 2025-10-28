@@ -3,7 +3,7 @@
     
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
         {{-- Sidebar with Tools --}}
-        <div class="card bg-base-300 shadow-xl lg:col-span-1">
+        <div class="card bg-base-100 shadow-xl lg:col-span-1">
             <div class="card-body">
                 <h2 class="card-title text-base-content">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
