@@ -147,11 +147,13 @@
                 <x-menu-item title="Chemistry Lab" icon="o-beaker" link="{{ route('virtual-lab.chemistry') }}" wire:navigate />
             </x-menu-sub>
             
-            {{-- Administrator Section --}}
+            {{-- Administrator Section - Only visible for Admin role --}}
+            @role('Admin')
             <x-menu-sub title="Administrator" icon="o-cog-6-tooth" link="#">
                 <x-menu-item title="Users" icon="o-users" link="{{ route('user.index') }}" wire:navigate />
                 <x-menu-item title="Roles" icon="o-user-group" link="{{ route('role.index') }}" wire:navigate />
             </x-menu-sub>
+            @endrole
         </x-menu>
 
       </x-slot:sidebar>

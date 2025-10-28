@@ -27,10 +27,12 @@ Route::get('/', function () {
 Route::middleware(['auth', 'domainCheck'])->group(function () {
     Route::get('/home', Home::class)->name('home');
 
-    // Administrator Routes
-    Route::get('/user', \App\Livewire\Users\UserIndex::class)->name('user.index');
-    Route::get('/role', \App\Livewire\Roles\RoleIndex::class)->name('role.index');
-    Route::get('/role/{id}', \App\Livewire\Roles\RoleShow::class)->name('role.show');
+    // Administrator Routes - Only accessible by Admin role
+    Route::middleware(['role:Admin'])->group(function () {
+        Route::get('/user', \App\Livewire\Users\UserIndex::class)->name('user.index');
+        Route::get('/role', \App\Livewire\Roles\RoleIndex::class)->name('role.index');
+        Route::get('/role/{id}', \App\Livewire\Roles\RoleShow::class)->name('role.show');
+    });
 
     // Virtual Lab Routes
     Route::get('/virtual-lab', \App\Livewire\VirtualLab\VirtualLabIndex::class)->name('virtual-lab.index');
