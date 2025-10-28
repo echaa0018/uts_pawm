@@ -30,6 +30,28 @@ class PhysicsLab extends Component
     public $fallTime = 0;
     public $finalVelocity = 0;
     
+    // Circular Motion Variables
+    public $circularRadius = 5; // meters
+    public $circularVelocity = 10; // m/s
+    public $circularPeriod = 0;
+    public $centripetalForce = 0;
+    public $angularVelocity = 0;
+    
+    // Wave Motion Variables
+    public $waveFrequency = 2; // Hz
+    public $waveAmplitude = 1; // meters
+    public $waveWavelength = 2; // meters
+    public $waveSpeed = 0;
+    public $wavePeriod = 0;
+    
+    // Energy Conservation Variables
+    public $mass = 1; // kg
+    public $height = 10; // meters
+    public $velocity = 0; // m/s
+    public $potentialEnergy = 0;
+    public $kineticEnergy = 0;
+    public $totalEnergy = 0;
+    
     public function mount()
     {
         $this->selectedExperiment = 'pendulum';
@@ -102,6 +124,70 @@ class PhysicsLab extends Component
         );
     }
 
+    public function calculateCircularMotion()
+    {
+        $g = 9.81;
+        
+        // Period: T = 2πr/v
+        $this->circularPeriod = (2 * pi() * $this->circularRadius) / $this->circularVelocity;
+        
+        // Angular velocity: ω = v/r
+        $this->angularVelocity = $this->circularVelocity / $this->circularRadius;
+        
+        // Centripetal force: F = mv²/r (assuming mass = 1kg)
+        $this->centripetalForce = ($this->circularVelocity * $this->circularVelocity) / $this->circularRadius;
+        
+        $this->toast(
+            type: 'success',
+            title: 'Calculation Complete',
+            description: 'Circular motion calculated successfully',
+            position: 'toast-top toast-end',
+            icon: 'o-check-circle',
+            timeout: 3000
+        );
+    }
+    
+    public function calculateWaveMotion()
+    {
+        // Wave speed: v = fλ
+        $this->waveSpeed = $this->waveFrequency * $this->waveWavelength;
+        
+        // Wave period: T = 1/f
+        $this->wavePeriod = 1 / $this->waveFrequency;
+        
+        $this->toast(
+            type: 'success',
+            title: 'Calculation Complete',
+            description: 'Wave motion calculated successfully',
+            position: 'toast-top toast-end',
+            icon: 'o-check-circle',
+            timeout: 3000
+        );
+    }
+    
+    public function calculateEnergyConservation()
+    {
+        $g = 9.81;
+        
+        // Potential Energy: PE = mgh
+        $this->potentialEnergy = $this->mass * $g * $this->height;
+        
+        // Kinetic Energy: KE = ½mv²
+        $this->kineticEnergy = 0.5 * $this->mass * $this->velocity * $this->velocity;
+        
+        // Total Energy: E = PE + KE
+        $this->totalEnergy = $this->potentialEnergy + $this->kineticEnergy;
+        
+        $this->toast(
+            type: 'success',
+            title: 'Calculation Complete',
+            description: 'Energy conservation calculated successfully',
+            position: 'toast-top toast-end',
+            icon: 'o-check-circle',
+            timeout: 3000
+        );
+    }
+
     public function resetCalculations()
     {
         $this->pendulumPeriod = 0;
@@ -110,6 +196,14 @@ class PhysicsLab extends Component
         $this->timeOfFlight = 0;
         $this->fallTime = 0;
         $this->finalVelocity = 0;
+        $this->circularPeriod = 0;
+        $this->centripetalForce = 0;
+        $this->angularVelocity = 0;
+        $this->waveSpeed = 0;
+        $this->wavePeriod = 0;
+        $this->potentialEnergy = 0;
+        $this->kineticEnergy = 0;
+        $this->totalEnergy = 0;
     }
 
     public function render()

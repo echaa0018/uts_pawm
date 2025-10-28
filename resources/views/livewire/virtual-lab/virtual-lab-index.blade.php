@@ -45,7 +45,15 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <x-icon name="o-check-circle" class="w-4 h-4 text-success" />
-                            <span>Free Fall</span>
+                            <span>Circular Motion</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <x-icon name="o-check-circle" class="w-4 h-4 text-success" />
+                            <span>Wave Motion</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <x-icon name="o-check-circle" class="w-4 h-4 text-success" />
+                            <span>Energy Conservation</span>
                         </div>
                     </div>
 
@@ -86,7 +94,15 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <x-icon name="o-check-circle" class="w-4 h-4 text-success" />
-                            <span>Statistics Calculator</span>
+                            <span>Derivative Calculator</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <x-icon name="o-check-circle" class="w-4 h-4 text-success" />
+                            <span>Unit Converter</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <x-icon name="o-check-circle" class="w-4 h-4 text-success" />
+                            <span>Graphing Calculator</span>
                         </div>
                     </div>
 
@@ -127,11 +143,15 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <x-icon name="o-check-circle" class="w-4 h-4 text-success" />
-                            <span>Ideal Gas Law</span>
+                            <span>Molecular Weight</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <x-icon name="o-check-circle" class="w-4 h-4 text-success" />
-                            <span>Stoichiometry</span>
+                            <span>Periodic Table</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <x-icon name="o-check-circle" class="w-4 h-4 text-success" />
+                            <span>Reaction Balancer</span>
                         </div>
                     </div>
 

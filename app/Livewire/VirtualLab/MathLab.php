@@ -26,16 +26,30 @@ class MathLab extends Component
     public $matrixResult = null;
     public $matrixOperation = 'add';
     
-    // Derivative Calculator
-    public $function = 'x^2';
-    public $derivativeResult = '';
-    
     // Statistics Calculator
     public $dataSet = '1, 2, 3, 4, 5';
     public $mean = null;
     public $median = null;
     public $mode = null;
     public $stdDev = null;
+    
+    // Derivative Calculator
+    public $derivativeFunction = 'x^2';
+    public $derivativeResult = '';
+    public $derivativeSteps = [];
+    
+    // Unit Converter
+    public $converterCategory = 'length';
+    public $converterFrom = 'meter';
+    public $converterTo = 'kilometer';
+    public $converterValue = 1;
+    public $converterResult = 0;
+    
+    // Graphing Calculator
+    public $graphFunction = 'x^2';
+    public $graphMinX = -10;
+    public $graphMaxX = 10;
+    public $graphPoints = [];
 
     public function mount()
     {
@@ -180,6 +194,132 @@ class MathLab extends Component
         );
     }
 
+    public function calculateDerivative()
+    {
+        $function = strtolower(trim($this->derivativeFunction));
+        $this->derivativeSteps = [];
+        
+        // Simple derivative rules
+        if (preg_match('/x\^(\d+)/', $function, $matches)) {
+            $power = (int)$matches[1];
+            $this->derivativeResult = $power . 'x^' . ($power - 1);
+            $this->derivativeSteps[] = "Using power rule: d/dx(x^n) = nx^(n-1)";
+            $this->derivativeSteps[] = "d/dx(x^$power) = {$power}x^" . ($power - 1);
+        } elseif ($function === 'x') {
+            $this->derivativeResult = '1';
+            $this->derivativeSteps[] = "d/dx(x) = 1";
+        } elseif (preg_match('/(\d+)x/', $function, $matches)) {
+            $coeff = (int)$matches[1];
+            $this->derivativeResult = $coeff;
+            $this->derivativeSteps[] = "d/dx($coeff x) = $coeff";
+        } else {
+            $this->derivativeResult = '0';
+            $this->derivativeSteps[] = "d/dx(constant) = 0";
+        }
+        
+        $this->toast(
+            type: 'success',
+            title: 'Derivative Calculated',
+            description: 'Derivative found successfully',
+            position: 'toast-top toast-end',
+            icon: 'o-check-circle',
+            timeout: 3000
+        );
+    }
+    
+    public function convertUnits()
+    {
+        $conversions = [
+            'length' => [
+                'meter' => 1,
+                'kilometer' => 1000,
+                'centimeter' => 0.01,
+                'millimeter' => 0.001,
+                'inch' => 0.0254,
+                'foot' => 0.3048,
+                'yard' => 0.9144,
+                'mile' => 1609.34
+            ],
+            'weight' => [
+                'gram' => 1,
+                'kilogram' => 1000,
+                'pound' => 453.592,
+                'ounce' => 28.3495,
+                'ton' => 1000000
+            ],
+            'temperature' => [
+                'celsius' => 1,
+                'fahrenheit' => 1,
+                'kelvin' => 1
+            ]
+        ];
+        
+        if ($this->converterCategory === 'temperature') {
+            // Special handling for temperature
+            if ($this->converterFrom === 'celsius' && $this->converterTo === 'fahrenheit') {
+                $this->converterResult = ($this->converterValue * 9/5) + 32;
+            } elseif ($this->converterFrom === 'fahrenheit' && $this->converterTo === 'celsius') {
+                $this->converterResult = ($this->converterValue - 32) * 5/9;
+            } elseif ($this->converterFrom === 'celsius' && $this->converterTo === 'kelvin') {
+                $this->converterResult = $this->converterValue + 273.15;
+            } elseif ($this->converterFrom === 'kelvin' && $this->converterTo === 'celsius') {
+                $this->converterResult = $this->converterValue - 273.15;
+            } else {
+                $this->converterResult = $this->converterValue;
+            }
+        } else {
+            // Standard unit conversion
+            $fromFactor = $conversions[$this->converterCategory][$this->converterFrom];
+            $toFactor = $conversions[$this->converterCategory][$this->converterTo];
+            $this->converterResult = ($this->converterValue * $fromFactor) / $toFactor;
+        }
+        
+        $this->toast(
+            type: 'success',
+            title: 'Conversion Complete',
+            description: 'Unit conversion completed',
+            position: 'toast-top toast-end',
+            icon: 'o-check-circle',
+            timeout: 3000
+        );
+    }
+    
+    public function generateGraph()
+    {
+        $this->graphPoints = [];
+        $step = ($this->graphMaxX - $this->graphMinX) / 100;
+        
+        for ($x = $this->graphMinX; $x <= $this->graphMaxX; $x += $step) {
+            // Simple function evaluation for x^2, x^3, sin(x), etc.
+            if ($this->graphFunction === 'x^2') {
+                $y = $x * $x;
+            } elseif ($this->graphFunction === 'x^3') {
+                $y = $x * $x * $x;
+            } elseif ($this->graphFunction === 'sin(x)') {
+                $y = sin($x);
+            } elseif ($this->graphFunction === 'cos(x)') {
+                $y = cos($x);
+            } elseif ($this->graphFunction === 'sqrt(x)') {
+                $y = $x >= 0 ? sqrt($x) : null;
+            } else {
+                $y = $x; // Default to linear
+            }
+            
+            if ($y !== null && abs($y) <= 100) { // Limit y values for display
+                $this->graphPoints[] = ['x' => round($x, 2), 'y' => round($y, 2)];
+            }
+        }
+        
+        $this->toast(
+            type: 'success',
+            title: 'Graph Generated',
+            description: 'Function graph created successfully',
+            position: 'toast-top toast-end',
+            icon: 'o-check-circle',
+            timeout: 3000
+        );
+    }
+
     public function resetCalculations()
     {
         $this->root1 = null;
@@ -189,6 +329,10 @@ class MathLab extends Component
         $this->mean = null;
         $this->median = null;
         $this->stdDev = null;
+        $this->derivativeResult = '';
+        $this->derivativeSteps = [];
+        $this->converterResult = 0;
+        $this->graphPoints = [];
     }
 
     public function render()

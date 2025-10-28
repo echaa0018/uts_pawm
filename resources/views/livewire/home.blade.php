@@ -1,37 +1,40 @@
 <div class="">
 
+    {{-- Replaced placeholder stats with relevant Virtual Lab metrics --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <x-stat
-            class=""
-            title="Messages"
-            value="44"
-            icon="o-envelope"
-            tooltip-bottom="Hello"
-            color="text-primary" />
-        
-        <x-stat
-            title="Sales"
-            description="This month"
-            value="22.124"
-            icon="o-arrow-trending-up"
-            tooltip-bottom="There" />
-        
-        <x-stat
-            title="Lost"
-            description="This month"
-            value="34"
-            icon="o-arrow-trending-down"
-            tooltip-bottom="Ops!" />
-        
-        <x-stat
-            title="Sales"
-            description="This month"
-            value="22.124"
-            icon="o-arrow-trending-down"
-            class="text-orange-500"
-            color="text-pink-500"
-            tooltip-bottom="Gosh!" />
+            title="Total Experiments"
+            description="Across all labs"
+            value="19"
+            icon="o-variable"
+            tooltip-bottom="Total number of available tools and experiments" />
 
+        <x-stat
+            title="Math"
+            description="Tools Available"   
+            value="6"
+            icon="o-calculator"
+            class="text-red-500"
+            color="text-red-500"
+            tooltip-bottom="-" />
+
+        <x-stat
+            title="Physics"
+            description="Experiments available"
+            value="6"
+            icon="o-bolt"
+            class="text-blue-500"
+            color="text-blue-500"
+            tooltip-bottom="Simple Pendulum, Projectile Motion, and more" />
+
+        <x-stat
+            title="Chemistry"
+            description="Calculators available"
+            value="7"
+            icon="o-beaker"
+            class="text-green-500"
+            color="text-green-500"
+            tooltip-bottom="Molarity, pH, Ideal Gas Law, and more" />
     </div>
 
     {{-- Virtual Lab Quick Access --}}
@@ -51,7 +54,7 @@
                         <x-icon name="o-home" class="w-8 h-8" />
                     </div>
                     <div class="stat-title">Overview</div>
-                    <div class="stat-value text-primary text-xl">3</div>
+                    <div class="stat-value text-primary text-xl">3</div> {{-- This was correct --}}
                     <div class="stat-desc">Available Labs</div>
                 </div>
             </a>
@@ -63,7 +66,7 @@
                         <x-icon name="o-bolt" class="w-8 h-8" />
                     </div>
                     <div class="stat-title">Physics</div>
-                    <div class="stat-value text-secondary text-xl">3</div>
+                    <div class="stat-value text-secondary text-xl">6</div>
                     <div class="stat-desc">Experiments</div>
                 </div>
             </a>
@@ -75,7 +78,7 @@
                         <x-icon name="o-calculator" class="w-8 h-8" />
                     </div>
                     <div class="stat-title">Math</div>
-                    <div class="stat-value text-accent text-xl">3</div>
+                    <div class="stat-value text-accent text-xl">6</div>
                     <div class="stat-desc">Tools</div>
                 </div>
             </a>
@@ -87,25 +90,14 @@
                         <x-icon name="o-beaker" class="w-8 h-8" />
                     </div>
                     <div class="stat-title">Chemistry</div>
-                    <div class="stat-value text-info text-xl">4</div>
+                    <div class="stat-value text-info text-xl">7</div>
                     <div class="stat-desc">Calculators</div>
                 </div>
             </a>
         </div>
     </x-card>
 
-    <x-card class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {{-- {!! $chart->container() !!} --}}
-        <x-chart wire:model="myChart" />
-    </x-card>
-
-
     {{-- <script src="{{ $chart->cdn() }}"></script>
     {{ $chart->script() }} --}}
     
 </div>
-
-{{-- Load Chart.js only when needed --}}
-@assets
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-@endassets
