@@ -415,8 +415,8 @@
                     </div>
                 </div>
                 <div class="lg:col-span-2">
-                    <div class="bg-base-200 rounded-lg p-4" style="height: 400px;">
-                        <canvas id="projectileCanvas"></canvas>
+                    <div class="bg-base-200 rounded-lg p-4" style="height: 400px; position: relative;">
+                        <canvas id="projectileCanvas" style="width: 100%; height: 100%;"></canvas>
                     </div>
                 </div>
             </div>
@@ -450,8 +450,6 @@
                         label="Gravity (m/s²)" 
                         type="number"
                         step="0.1"
-                        min="0.1"
-                    />
                         min="0.1"
                     />
                     <x-button 
@@ -557,8 +555,8 @@
                     </div>
                 </div>
                 <div class="lg:col-span-2">
-                    <div class="bg-base-200 rounded-lg p-4" style="height: 400px;">
-                        <canvas id="freeFallCanvas"></canvas>
+                    <div class="bg-base-200 rounded-lg p-4" style="height: 400px; position: relative;">
+                        <canvas id="freeFallCanvas" style="width: 100%; height: 100%;"></canvas>
                     </div>
                 </div>
             </div>
@@ -603,7 +601,11 @@
                             backgroundColor: 'rgba(59, 130, 246, 0.1)',
                             borderWidth: 3,
                             pointRadius: 2,
-                            tension: 0.4
+                            tension: 0.4,
+                            parsing: {
+                                xAxisKey: 'x',
+                                yAxisKey: 'y'
+                            }
                         }]
                     },
                     options: {
@@ -837,6 +839,10 @@
                                 backgroundColor: 'rgba(59, 130, 246, 0.1)',
                                 borderWidth: 2,
                                 yAxisID: 'y',
+                                parsing: {
+                                    xAxisKey: 'x',
+                                    yAxisKey: 'y'
+                                }
                             },
                             {
                                 label: 'Velocity (m/s)',
@@ -845,6 +851,10 @@
                                 backgroundColor: 'rgba(239, 68, 68, 0.1)',
                                 borderWidth: 2,
                                 yAxisID: 'y1',
+                                parsing: {
+                                    xAxisKey: 'x',
+                                    yAxisKey: 'y'
+                                }
                             }
                         ]
                     },
