@@ -17,40 +17,97 @@
             </div>
         </x-card>
 
-        {{-- Experiment Selection --}}
-        <x-card>
-            <h2 class="text-xl font-semibold mb-4">Select an Experiment</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-                <button 
-                    wire:click="setExperiment('projectile')"
-                    class="btn {{ $activeExperiment === 'projectile' ? 'btn-primary' : 'btn-outline' }}"
-                >
-                    <x-icon name="o-arrow-trending-up" class="w-5 h-5 mr-2" />
-                    Projectile Motion
-                </button>
-                <button 
-                    wire:click="setExperiment('pendulum')"
-                    class="btn {{ $activeExperiment === 'pendulum' ? 'btn-primary' : 'btn-outline' }}"
-                >
-                    <x-icon name="o-arrow-path" class="w-5 h-5 mr-2" />
-                    Pendulum
-                </button>
-                <button 
-                    wire:click="setExperiment('spring')"
-                    class="btn {{ $activeExperiment === 'spring' ? 'btn-primary' : 'btn-outline' }}"
-                >
-                    <x-icon name="o-arrows-up-down" class="w-5 h-5 mr-2" />
-                    Spring-Mass
-                </button>
-                <button 
-                    wire:click="setExperiment('freefall')"
-                    class="btn {{ $activeExperiment === 'freefall' ? 'btn-primary' : 'btn-outline' }}"
-                >
-                    <x-icon name="o-arrow-down" class="w-5 h-5 mr-2" />
-                    Free Fall
-                </button>
-            </div>
-        </x-card>
+        {{-- Experiment Selection and Formulas Side by Side --}}
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {{-- Experiment Selection --}}
+            <x-card>
+                <h2 class="text-xl font-semibold mb-4">Select an Experiment</h2>
+                <div class="flex flex-col gap-3">
+                    <button 
+                        wire:click="setExperiment('projectile')"
+                        class="btn {{ $activeExperiment === 'projectile' ? 'btn-primary' : 'btn-outline' }} justify-start"
+                    >
+                        <x-icon name="o-arrow-trending-up" class="w-5 h-5 mr-2" />
+                        Projectile Motion
+                    </button>
+                    <button 
+                        wire:click="setExperiment('pendulum')"
+                        class="btn {{ $activeExperiment === 'pendulum' ? 'btn-primary' : 'btn-outline' }} justify-start"
+                    >
+                        <x-icon name="o-arrow-path" class="w-5 h-5 mr-2" />
+                        Pendulum
+                    </button>
+                    <button 
+                        wire:click="setExperiment('spring')"
+                        class="btn {{ $activeExperiment === 'spring' ? 'btn-primary' : 'btn-outline' }} justify-start"
+                    >
+                        <x-icon name="o-arrows-up-down" class="w-5 h-5 mr-2" />
+                        Spring-Mass
+                    </button>
+                    <button 
+                        wire:click="setExperiment('freefall')"
+                        class="btn {{ $activeExperiment === 'freefall' ? 'btn-primary' : 'btn-outline' }} justify-start"
+                    >
+                        <x-icon name="o-arrow-down" class="w-5 h-5 mr-2" />
+                        Free Fall
+                    </button>
+                </div>
+            </x-card>
+
+            {{-- Physics Formulas --}}
+            <x-card>
+                <h2 class="text-xl font-semibold mb-4">📚 Physics Formulas</h2>
+                <div class="text-sm">
+                    @if($activeExperiment === 'projectile')
+                    <div class="bg-base-200 p-4 rounded-lg">
+                        <h3 class="font-semibold mb-2">Projectile Motion</h3>
+                        <ul class="space-y-1">
+                            <li>• Range: R = (v₀² × sin(2θ)) / g</li>
+                            <li>• Max Height: H = (v₀² × sin²(θ)) / (2g)</li>
+                            <li>• Time of Flight: T = (2v₀ × sin(θ)) / g</li>
+                        </ul>
+                    </div>
+                    @elseif($activeExperiment === 'pendulum')
+                    <div class="bg-base-200 p-4 rounded-lg">
+                        <h3 class="font-semibold mb-2">Damped Pendulum (Air Resistance)</h3>
+                        <ul class="space-y-1 text-xs">
+                            <li>• Period (undamped): T = 2π√(L/g)</li>
+                            <li>• Angular Frequency: ω = √(g/L)</li>
+                            <li>• Damping: b = 0.1√L (from air resistance)</li>
+                            <li>• Damping Ratio: ζ = b/(2ω)</li>
+                            <li>• Damped Frequency: ω_d = ω√(1-ζ²)</li>
+                            <li>• Position: θ(t) = θ₀e^(-bt)cos(ω_d·t)</li>
+                            <li>• Energy decreases exponentially</li>
+                        </ul>
+                    </div>
+                    @elseif($activeExperiment === 'spring')
+                    <div class="bg-base-200 p-4 rounded-lg">
+                        <h3 class="font-semibold mb-2">Damped Spring-Mass (Friction)</h3>
+                        <ul class="space-y-1 text-xs">
+                            <li>• Period (undamped): T = 2π√(m/k)</li>
+                            <li>• Angular Frequency: ω = √(k/m)</li>
+                            <li>• Critical Damping: c_c = 2√(km)</li>
+                            <li>• Damping: c = 0.1c_c (10% of critical)</li>
+                            <li>• Damping Ratio: ζ = c/(2√(km))</li>
+                            <li>• Damped Frequency: ω_d = ω√(1-ζ²)</li>
+                            <li>• Position: x(t) = Ae^(-ct/2m)cos(ω_d·t)</li>
+                            <li>• Energy decreases exponentially</li>
+                        </ul>
+                    </div>
+                    @elseif($activeExperiment === 'freefall')
+                    <div class="bg-base-200 p-4 rounded-lg">
+                        <h3 class="font-semibold mb-2">Free Fall</h3>
+                        <ul class="space-y-1">
+                            <li>• Position: y = h - ½gt²</li>
+                            <li>• Velocity: v = gt</li>
+                            <li>• Final Velocity: v = √(2gh)</li>
+                            <li>• Time to Fall: t = √(2h/g)</li>
+                        </ul>
+                    </div>
+                    @endif
+                </div>
+            </x-card>
+        </div>
 
         {{-- Projectile Motion Experiment --}}
         @if($activeExperiment === 'projectile')
@@ -243,60 +300,6 @@
             </div>
         </x-card>
         @endif
-
-        {{-- Information Card --}}
-        <x-card>
-            <h2 class="text-xl font-semibold mb-4">📚 Physics Formulas</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                @if($activeExperiment === 'projectile')
-                <div class="bg-base-200 p-4 rounded-lg">
-                    <h3 class="font-semibold mb-2">Projectile Motion</h3>
-                    <ul class="space-y-1">
-                        <li>• Range: R = (v₀² × sin(2θ)) / g</li>
-                        <li>• Max Height: H = (v₀² × sin²(θ)) / (2g)</li>
-                        <li>• Time of Flight: T = (2v₀ × sin(θ)) / g</li>
-                    </ul>
-                </div>
-                @elseif($activeExperiment === 'pendulum')
-                <div class="bg-base-200 p-4 rounded-lg">
-                    <h3 class="font-semibold mb-2">Damped Pendulum (Air Resistance)</h3>
-                    <ul class="space-y-1 text-xs">
-                        <li>• Period (undamped): T = 2π√(L/g)</li>
-                        <li>• Angular Frequency: ω = √(g/L)</li>
-                        <li>• Damping: b = 0.1√L (from air resistance)</li>
-                        <li>• Damping Ratio: ζ = b/(2ω)</li>
-                        <li>• Damped Frequency: ω_d = ω√(1-ζ²)</li>
-                        <li>• Position: θ(t) = θ₀e^(-bt)cos(ω_d·t)</li>
-                        <li>• Energy decreases exponentially</li>
-                    </ul>
-                </div>
-                @elseif($activeExperiment === 'spring')
-                <div class="bg-base-200 p-4 rounded-lg">
-                    <h3 class="font-semibold mb-2">Damped Spring-Mass (Friction)</h3>
-                    <ul class="space-y-1 text-xs">
-                        <li>• Period (undamped): T = 2π√(m/k)</li>
-                        <li>• Angular Frequency: ω = √(k/m)</li>
-                        <li>• Critical Damping: c_c = 2√(km)</li>
-                        <li>• Damping: c = 0.1c_c (10% of critical)</li>
-                        <li>• Damping Ratio: ζ = c/(2√(km))</li>
-                        <li>• Damped Frequency: ω_d = ω√(1-ζ²)</li>
-                        <li>• Position: x(t) = Ae^(-ct/2m)cos(ω_d·t)</li>
-                        <li>• Energy decreases exponentially</li>
-                    </ul>
-                </div>
-                @elseif($activeExperiment === 'freefall')
-                <div class="bg-base-200 p-4 rounded-lg">
-                    <h3 class="font-semibold mb-2">Free Fall</h3>
-                    <ul class="space-y-1">
-                        <li>• Position: y = h - ½gt²</li>
-                        <li>• Velocity: v = gt</li>
-                        <li>• Final Velocity: v = √(2gh)</li>
-                        <li>• Time to Fall: t = √(2h/g)</li>
-                    </ul>
-                </div>
-                @endif
-            </div>
-        </x-card>
     </div>
 
     @push('scripts')
