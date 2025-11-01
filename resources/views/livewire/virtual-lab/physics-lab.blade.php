@@ -2,7 +2,7 @@
     {{-- Physics Lab - Interactive Simulations --}}
     
     <div class="space-y-6">
-        {{-- Header Section --}}
+        {{-- Header--}}
         <x-card>
             <div class="text-center space-y-4">
                 <div class="flex justify-center">
