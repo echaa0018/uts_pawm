@@ -61,11 +61,22 @@
                     @if($activeExperiment === 'projectile')
                     <div class="bg-base-200 p-4 rounded-lg">
                         <h3 class="font-semibold mb-2">Projectile Motion</h3>
-                        <ul class="space-y-1">
+                        <ul class="space-y-1 mb-3">
                             <li>• Range: R = (v₀² × sin(2θ)) / g</li>
                             <li>• Max Height: H = (v₀² × sin²(θ)) / (2g)</li>
                             <li>• Time of Flight: T = (2v₀ × sin(θ)) / g</li>
                         </ul>
+                        <div class="text-xs border-t border-base-300 pt-2 mt-2">
+                            <div class="font-semibold mb-1">Variables:</div>
+                            <ul class="space-y-0.5 text-base-content/70">
+                                <li>• v₀ = Initial velocity (m/s)</li>
+                                <li>• θ = Launch angle (degrees)</li>
+                                <li>• g = Gravitational acceleration (m/s²)</li>
+                                <li>• R = Horizontal range (m)</li>
+                                <li>• H = Maximum height (m)</li>
+                                <li>• T = Time of flight (s)</li>
+                            </ul>
+                        </div>
                     </div>
                     
                     {{-- Calculated Results --}}
@@ -113,7 +124,7 @@
                     @elseif($activeExperiment === 'pendulum')
                     <div class="bg-base-200 p-4 rounded-lg">
                         <h3 class="font-semibold mb-2">Damped Pendulum (Air Resistance)</h3>
-                        <ul class="space-y-1 text-xs">
+                        <ul class="space-y-1 text-xs mb-3">
                             <li>• Period (undamped): T = 2π√(L/g)</li>
                             <li>• Angular Frequency: ω = √(g/L)</li>
                             <li>• Damping: b = 0.1√L (from air resistance)</li>
@@ -122,6 +133,19 @@
                             <li>• Position: θ(t) = θ₀e^(-bt)cos(ω_d·t)</li>
                             <li>• Energy decreases exponentially</li>
                         </ul>
+                        <div class="text-xs border-t border-base-300 pt-2 mt-2">
+                            <div class="font-semibold mb-1">Variables:</div>
+                            <ul class="space-y-0.5 text-base-content/70">
+                                <li>• L = Length of pendulum (m)</li>
+                                <li>• θ₀ = Initial angle (degrees)</li>
+                                <li>• g = Gravitational acceleration (m/s²)</li>
+                                <li>• T = Period of oscillation (s)</li>
+                                <li>• ω = Angular frequency (rad/s)</li>
+                                <li>• b = Damping coefficient</li>
+                                <li>• ζ = Damping ratio</li>
+                                <li>• ω_d = Damped frequency (rad/s)</li>
+                            </ul>
+                        </div>
                     </div>
                     
                     {{-- Calculated Results --}}
@@ -177,7 +201,7 @@
                     @elseif($activeExperiment === 'spring')
                     <div class="bg-base-200 p-4 rounded-lg">
                         <h3 class="font-semibold mb-2">Damped Spring-Mass (Friction)</h3>
-                        <ul class="space-y-1 text-xs">
+                        <ul class="space-y-1 text-xs mb-3">
                             <li>• Period (undamped): T = 2π√(m/k)</li>
                             <li>• Angular Frequency: ω = √(k/m)</li>
                             <li>• Critical Damping: c_c = 2√(km)</li>
@@ -187,6 +211,20 @@
                             <li>• Position: x(t) = Ae^(-ct/2m)cos(ω_d·t)</li>
                             <li>• Energy decreases exponentially</li>
                         </ul>
+                        <div class="text-xs border-t border-base-300 pt-2 mt-2">
+                            <div class="font-semibold mb-1">Variables:</div>
+                            <ul class="space-y-0.5 text-base-content/70">
+                                <li>• m = Mass (kg)</li>
+                                <li>• k = Spring constant (N/m)</li>
+                                <li>• x₀ = Initial displacement (m)</li>
+                                <li>• T = Period of oscillation (s)</li>
+                                <li>• ω = Angular frequency (rad/s)</li>
+                                <li>• c_c = Critical damping coefficient (Ns/m)</li>
+                                <li>• c = Damping coefficient (Ns/m)</li>
+                                <li>• ζ = Damping ratio</li>
+                                <li>• ω_d = Damped frequency (rad/s)</li>
+                            </ul>
+                        </div>
                     </div>
                     
                     {{-- Calculated Results --}}
@@ -247,12 +285,22 @@
                     @elseif($activeExperiment === 'freefall')
                     <div class="bg-base-200 p-4 rounded-lg">
                         <h3 class="font-semibold mb-2">Free Fall</h3>
-                        <ul class="space-y-1">
+                        <ul class="space-y-1 mb-3">
                             <li>• Position: y = h - ½gt²</li>
                             <li>• Velocity: v = gt</li>
                             <li>• Final Velocity: v = √(2gh)</li>
                             <li>• Time to Fall: t = √(2h/g)</li>
                         </ul>
+                        <div class="text-xs border-t border-base-300 pt-2 mt-2">
+                            <div class="font-semibold mb-1">Variables:</div>
+                            <ul class="space-y-0.5 text-base-content/70">
+                                <li>• h = Initial height (m)</li>
+                                <li>• g = Gravitational acceleration (m/s²)</li>
+                                <li>• y = Position/height at time t (m)</li>
+                                <li>• v = Velocity (m/s)</li>
+                                <li>• t = Time (s)</li>
+                            </ul>
+                        </div>
                     </div>
                     
                     {{-- Calculated Results --}}
