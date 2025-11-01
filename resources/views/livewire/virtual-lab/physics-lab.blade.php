@@ -19,41 +19,69 @@
 
         {{-- Experiment Selection and Formulas --}}
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {{-- Experiment Selection --}}
-            <x-card>
-                <h2 class="text-xl font-semibold mb-4">Select an Experiment</h2>
-                <div class="flex flex-col gap-3">
-                    <button 
-                        wire:click="setExperiment('projectile')"
-                        class="btn {{ $activeExperiment === 'projectile' ? 'btn-primary' : 'btn-outline' }} justify-start"
-                    >
-                        <x-icon name="o-arrow-trending-up" class="w-5 h-5 mr-2" />
-                        Projectile Motion
-                    </button>
-                    <button 
-                        wire:click="setExperiment('pendulum')"
-                        class="btn {{ $activeExperiment === 'pendulum' ? 'btn-primary' : 'btn-outline' }} justify-start"
-                    >
-                        <x-icon name="o-arrow-path" class="w-5 h-5 mr-2" />
-                        Pendulum
-                    </button>
-                    <button 
-                        wire:click="setExperiment('spring')"
-                        class="btn {{ $activeExperiment === 'spring' ? 'btn-primary' : 'btn-outline' }} justify-start"
-                    >
-                        <x-icon name="o-arrows-up-down" class="w-5 h-5 mr-2" />
-                        Spring-Mass
-                    </button>
-                    <button 
-                        wire:click="setExperiment('freefall')"
-                        class="btn {{ $activeExperiment === 'freefall' ? 'btn-primary' : 'btn-outline' }} justify-start"
-                    >
-                        <x-icon name="o-arrow-down" class="w-5 h-5 mr-2" />
-                        Free Fall
-                    </button>
-                </div>
-            </x-card>
+            <div class="space-y-6">
+                {{-- Experiment Selection --}}
+                <x-card class="h-fit">
+                    <h2 class="text-xl font-semibold mb-4">Select an Experiment</h2>
+                    <div class="flex flex-col gap-2">
+                        <button 
+                            wire:click="setExperiment('projectile')"
+                            class="btn {{ $activeExperiment === 'projectile' ? 'btn-primary' : 'btn-outline' }} justify-start"
+                        >
+                            <x-icon name="o-arrow-trending-up" class="w-5 h-5 mr-2" />
+                            Projectile Motion
+                        </button>
+                        <button 
+                            wire:click="setExperiment('pendulum')"
+                            class="btn {{ $activeExperiment === 'pendulum' ? 'btn-primary' : 'btn-outline' }} justify-start"
+                        >
+                            <x-icon name="o-arrow-path" class="w-5 h-5 mr-2" />
+                            Pendulum
+                        </button>
+                        <button 
+                            wire:click="setExperiment('spring')"
+                            class="btn {{ $activeExperiment === 'spring' ? 'btn-primary' : 'btn-outline' }} justify-start"
+                        >
+                            <x-icon name="o-arrows-up-down" class="w-5 h-5 mr-2" />
+                            Spring-Mass
+                        </button>
+                        <button 
+                            wire:click="setExperiment('freefall')"
+                            class="btn {{ $activeExperiment === 'freefall' ? 'btn-primary' : 'btn-outline' }} justify-start"
+                        >
+                            <x-icon name="o-arrow-down" class="w-5 h-5 mr-2" />
+                            Free Fall
+                        </button>
+                    </div>
+                </x-card>
 
+                {{-- Experiment Description --}}
+                <x-card class="h-fit">
+                    <h2 class="text-xl font-semibold mb-3 flex items-center gap-2">
+                        <x-icon name="o-information-circle" class="w-5 h-5" />
+                        About This Experiment
+                    </h2>
+                    <div class="text-sm text-base-content/80">
+                        @if($activeExperiment === 'projectile')
+                        <p class="mb-2"><strong>Projectile Motion</strong> describes the motion of an object thrown or projected into the air, subject only to acceleration due to gravity.</p>
+                        <p>This experiment simulates the parabolic trajectory of a projectile launched at an angle. You can adjust the initial velocity, launch angle, and gravity to see how they affect the range, maximum height, and time of flight.</p>
+                        
+                        @elseif($activeExperiment === 'pendulum')
+                        <p class="mb-2"><strong>Pendulum Motion</strong> demonstrates periodic oscillation under the influence of gravity with air resistance damping.</p>
+                        <p>This experiment simulates a simple pendulum with realistic damping effects. The pendulum gradually loses energy due to air resistance, causing the amplitude to decrease over time until it comes to rest. The damping coefficient is automatically calculated based on the pendulum length.</p>
+                        
+                        @elseif($activeExperiment === 'spring')
+                        <p class="mb-2"><strong>Spring-Mass System</strong> demonstrates harmonic oscillation with friction-based damping following Hooke's Law.</p>
+                        <p>This experiment simulates a mass attached to a spring with realistic friction damping. The system oscillates back and forth, gradually losing energy due to friction until it reaches equilibrium. The damping is set to 10% of critical damping for realistic behavior.</p>
+                        
+                        @elseif($activeExperiment === 'freefall')
+                        <p class="mb-2"><strong>Free Fall</strong> demonstrates motion under the sole influence of gravity, starting from rest.</p>
+                        <p>This experiment simulates an object dropped from a height with no initial velocity. You can observe how the object accelerates uniformly under gravity, and see both the position and velocity change over time as it falls.</p>
+                        @endif
+                    </div>
+                </x-card>
+            </div>
+            
             {{-- Physics Formulas --}}
             <x-card>
                 <h2 class="text-xl font-semibold mb-4">📚 Physics Formulas</h2>

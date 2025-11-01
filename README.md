@@ -1,6 +1,11 @@
-# Application Name
+# Virtual Lab Management System
 
-A clean Laravel application with user authentication and role-based access control.
+A Laravel application with user authentication, role-based access control, and virtual laboratory features. This application is deployed and accessible online.
+
+## 🌐 Live Application
+
+**Access the application at:** [Your Railway URL]
+<!-- Replace with your actual deployment URL -->
 
 ## Features
 
@@ -9,117 +14,130 @@ A clean Laravel application with user authentication and role-based access contr
 - 🔐 **Role Management** - Manage user roles and permissions
 - 🔑 **Authentication** - Secure login/logout system
 - ✅ **Permission System** - Role-based access control using Spatie
+- 🧪 **Virtual Lab** - Interactive physics and chemistry laboratory simulations
 
-## Setup Instructions
+## Deployment
+
+This application is deployed on Railway with the following stack:
+- **Platform:** Railway
+- **Server:** FrankenPHP
+- **Database:** PostgreSQL
+- **Asset Compilation:** Vite (production build)
+
+### Environment Configuration
+
+The production environment uses:
+- `APP_ENV=production`
+- `APP_DEBUG=false`
+- PostgreSQL database (Railway managed)
+- Production-optimized asset compilation
+
+## Local Development Setup
+
+If you want to run this project locally:
 
 ### 1. Install Dependencies
 
-Install PHP dependencies:
 ```bash
 composer install
-```
-
-Install Node dependencies:
-```bash
 npm install
 ```
 
 ### 2. Configure Environment
 
-Copy `.env.example` to `.env` and configure your database:
 ```bash
 cp .env.example .env
 ```
 
-Update database credentials in `.env`:
-```env
-DB_CONNECTION=pgsql
-DB_HOST=127.0.0.1
-DB_PORT=5432
-DB_DATABASE=your_database_name
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
-```
-
-Generate application key:
+Update database credentials and generate application key:
 ```bash
 php artisan key:generate
 ```
 
 ### 3. Setup Database
 
-Run migrations and seeders:
 ```bash
 php artisan migrate:fresh --seed
 ```
 
-This will create:
-- All necessary database tables
-- 3 default users (Admin, Employee, Stakeholder)
-- Default roles and permissions
-
 ### 4. Run the Application
 
-Start the Vite development server:
 ```bash
 npm run dev
-```
-
-Start the PHP development server:
-```bash
 php artisan serve
 ```
 
-Access the application at: `http://localhost:8000`
+Access at: `http://localhost:8000`
 
-## Default Login Credentials
+## User Accounts
+
+The system includes pre-configured user accounts:
 
 **Admin User:**
 - Email: `admin@houshou.com`
 - Password: `password`
 - Role: Admin (Full Access)
 
-**Employee User:**
+**Teacher User:**
 - Email: `teacher@houshou.com`
 - Password: `password`
-- Role: Teacher (Full Access, future tbc)
+- Role: Teacher
 
-**Stakeholder User:**
+**Student User:**
 - Email: `student@houshou.com`
 - Password: `password`
-- Role: Student (Full Access, future tbc)
+- Role: Student
 
-⚠️ **Change these credentials in production!**
+⚠️ **Note:** These are default credentials created by the database seeder.
 
-## Available Routes
+## Application Routes
 
 - `/` - Homepage (redirects to /home or /login)
 - `/login` - Login page
 - `/logout` - Logout
 - `/home` - Dashboard (requires authentication)
-- `/user` - User management (requires authentication)
-- `/role` - Role management (requires authentication)
-- `/role/{id}` - Role details (requires authentication)
-
-## Documentation
-
-- **DATABASE_RESET_GUIDE.md** - How to reset and configure database
-- **LOGIN_CREDENTIALS.md** - Detailed user management guide
-- **CLEANUP_SUMMARY.md** - Summary of removed asset-related features
+- `/user` - User management (requires admin role)
+- `/role` - Role management (requires admin role)
+- `/role/{id}` - Role details (requires admin role)
+- `/virtual-lab` - Virtual laboratory interface
 
 ## Tech Stack
 
 - **Framework:** Laravel 11
-- **Frontend:** Livewire 3, TailwindCSS
-- **Database:** PostgreSQL (or MySQL)
+- **Frontend:** Livewire 3, TailwindCSS, Alpine.js
+- **Database:** PostgreSQL
 - **Authentication:** Laravel Breeze
 - **Permissions:** Spatie Laravel Permission
 - **UI Components:** Mary UI
+- **Charts:** Larapex Charts
+- **Deployment:** Railway + FrankenPHP
+- **Build Tool:** Vite
 
-## Development
+## Project Structure
 
-### Clear Caches
+```
+app/
+├── Http/Controllers/     # HTTP controllers
+├── Livewire/            # Livewire components
+│   ├── VirtualLab/      # Virtual lab features
+│   ├── Users/           # User management
+│   └── Roles/           # Role management
+├── Models/              # Eloquent models
+└── Services/            # Business logic services
 
+resources/
+├── views/livewire/      # Livewire blade templates
+└── js/                  # Frontend JavaScript
+
+routes/
+└── web.php             # Web routes
+```
+
+## For Developers
+
+### Useful Artisan Commands
+
+Clear application caches:
 ```bash
 php artisan route:clear
 php artisan view:clear
@@ -127,22 +145,16 @@ php artisan config:clear
 php artisan cache:clear
 ```
 
-### Create New Components
-
-Create a new Livewire component:
+Create new components:
 ```bash
 php artisan make:livewire YourComponent
-```
-
-Create a new migration:
-```bash
 php artisan make:migration create_your_table
-```
-
-Create a new model:
-```bash
 php artisan make:model YourModel -m
 ```
+
+## Academic Project
+
+This is a project for the Web and Mobile Application Development course (Semester 5).
 
 ## License
 
