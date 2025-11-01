@@ -151,12 +151,3 @@ php artisan make:livewire YourComponent
 php artisan make:migration create_your_table
 php artisan make:model YourModel -m
 ```
-
-## Academic Project
-
-This is a project for the Web and Mobile Application Development course (Semester 5).
-
-## License
-
-This project is open-sourced software licensed under the MIT license.
-
