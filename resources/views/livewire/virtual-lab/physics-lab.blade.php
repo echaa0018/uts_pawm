@@ -82,18 +82,30 @@
                             <x-icon name="o-calculator" class="w-4 h-4" />
                             Calculated Results
                         </h3>
-                        <div class="space-y-2 text-xs">
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Range (R):</span>
-                                <span class="font-bold">{{ number_format($calcRange, 2) }} m</span>
+                        <div class="space-y-3 text-xs">
+                            {{-- Input Variables --}}
+                            <div class="bg-base-100/50 p-2 rounded border border-primary/20">
+                                <div class="font-semibold text-primary mb-1">Input Variables:</div>
+                                <div class="space-y-1">
+                                    <div>v₀ = {{ $velocity }} m/s</div>
+                                    <div>θ = {{ $angle }}°</div>
+                                    <div>g = {{ $gravity }} m/s²</div>
+                                </div>
                             </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Max Height (H):</span>
-                                <span class="font-bold">{{ number_format($calcMaxHeight, 2) }} m</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Time of Flight (T):</span>
-                                <span class="font-bold">{{ number_format($calcTimeOfFlight, 2) }} s</span>
+                            {{-- Results --}}
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Range (R):</span>
+                                    <span class="font-bold">{{ number_format($calcRange, 2) }} m</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Max Height (H):</span>
+                                    <span class="font-bold">{{ number_format($calcMaxHeight, 2) }} m</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Time of Flight (T):</span>
+                                    <span class="font-bold">{{ number_format($calcTimeOfFlight, 2) }} s</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -126,26 +138,38 @@
                             <x-icon name="o-calculator" class="w-4 h-4" />
                             Calculated Results
                         </h3>
-                        <div class="space-y-2 text-xs">
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Period (T):</span>
-                                <span class="font-bold">{{ number_format($calcPeriod, 3) }} s</span>
+                        <div class="space-y-3 text-xs">
+                            {{-- Input Variables --}}
+                            <div class="bg-base-100/50 p-2 rounded border border-secondary/20">
+                                <div class="font-semibold text-secondary mb-1">Input Variables:</div>
+                                <div class="space-y-1">
+                                    <div>L = {{ $pendulumLength }} m</div>
+                                    <div>θ₀ = {{ $pendulumAngle }}°</div>
+                                    <div>g = {{ $pendulumGravity }} m/s²</div>
+                                </div>
                             </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Frequency (f):</span>
-                                <span class="font-bold">{{ number_format($calcFrequency, 3) }} Hz</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Angular Freq (ω):</span>
-                                <span class="font-bold">{{ number_format($calcOmega, 3) }} rad/s</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Damping (b):</span>
-                                <span class="font-bold">{{ number_format($calcDamping, 3) }}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Damping Ratio (ζ):</span>
-                                <span class="font-bold">{{ number_format($calcDampingRatio, 3) }}</span>
+                            {{-- Results --}}
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Period (T):</span>
+                                    <span class="font-bold">{{ number_format($calcPeriod, 3) }} s</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Frequency (f):</span>
+                                    <span class="font-bold">{{ number_format($calcFrequency, 3) }} Hz</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Angular Freq (ω):</span>
+                                    <span class="font-bold">{{ number_format($calcOmega, 3) }} rad/s</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Damping (b):</span>
+                                    <span class="font-bold">{{ number_format($calcDamping, 3) }}</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Damping Ratio (ζ):</span>
+                                    <span class="font-bold">{{ number_format($calcDampingRatio, 3) }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -180,30 +204,42 @@
                             <x-icon name="o-calculator" class="w-4 h-4" />
                             Calculated Results
                         </h3>
-                        <div class="space-y-2 text-xs">
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Period (T):</span>
-                                <span class="font-bold">{{ number_format($calcSpringPeriod, 3) }} s</span>
+                        <div class="space-y-3 text-xs">
+                            {{-- Input Variables --}}
+                            <div class="bg-base-100/50 p-2 rounded border border-accent/20">
+                                <div class="font-semibold text-accent mb-1">Input Variables:</div>
+                                <div class="space-y-1">
+                                    <div>m = {{ $mass }} kg</div>
+                                    <div>k = {{ $springConstant }} N/m</div>
+                                    <div>x₀ = {{ $displacement }} m</div>
+                                </div>
                             </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Frequency (f):</span>
-                                <span class="font-bold">{{ number_format($calcSpringFrequency, 3) }} Hz</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Angular Freq (ω):</span>
-                                <span class="font-bold">{{ number_format($calcAngularFreq, 3) }} rad/s</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Critical Damp (c_c):</span>
-                                <span class="font-bold">{{ number_format($calcCriticalDamping, 3) }} Ns/m</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Damping (c):</span>
-                                <span class="font-bold">{{ number_format($calcSpringDamping, 3) }} Ns/m</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Damping Ratio (ζ):</span>
-                                <span class="font-bold">{{ number_format($calcSpringDampingRatio, 3) }}</span>
+                            {{-- Results --}}
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Period (T):</span>
+                                    <span class="font-bold">{{ number_format($calcSpringPeriod, 3) }} s</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Frequency (f):</span>
+                                    <span class="font-bold">{{ number_format($calcSpringFrequency, 3) }} Hz</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Angular Freq (ω):</span>
+                                    <span class="font-bold">{{ number_format($calcAngularFreq, 3) }} rad/s</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Critical Damp (c_c):</span>
+                                    <span class="font-bold">{{ number_format($calcCriticalDamping, 3) }} Ns/m</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Damping (c):</span>
+                                    <span class="font-bold">{{ number_format($calcSpringDamping, 3) }} Ns/m</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Damping Ratio (ζ):</span>
+                                    <span class="font-bold">{{ number_format($calcSpringDampingRatio, 3) }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -230,18 +266,29 @@
                             <x-icon name="o-calculator" class="w-4 h-4" />
                             Calculated Results
                         </h3>
-                        <div class="space-y-2 text-xs">
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Time to Fall (t):</span>
-                                <span class="font-bold">{{ number_format($calcTimeToFall, 3) }} s</span>
+                        <div class="space-y-3 text-xs">
+                            {{-- Input Variables --}}
+                            <div class="bg-base-100/50 p-2 rounded border border-info/20">
+                                <div class="font-semibold text-info mb-1">Input Variables:</div>
+                                <div class="space-y-1">
+                                    <div>h = {{ $height }} m</div>
+                                    <div>g = {{ $freeFallGravity }} m/s²</div>
+                                </div>
                             </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Final Velocity (v):</span>
-                                <span class="font-bold">{{ number_format($calcFinalVelocity, 2) }} m/s</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-base-content/70">Impact Energy:</span>
-                                <span class="font-bold">{{ number_format($freeFallGravity * $height, 2) }} J/kg</span>
+                            {{-- Results --}}
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Time to Fall (t):</span>
+                                    <span class="font-bold">{{ number_format($calcTimeToFall, 3) }} s</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Final Velocity (v):</span>
+                                    <span class="font-bold">{{ number_format($calcFinalVelocity, 2) }} m/s</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base-content/70">Impact Energy:</span>
+                                    <span class="font-bold">{{ number_format($freeFallGravity * $height, 2) }} J/kg</span>
+                                </div>
                             </div>
                         </div>
                     </div>
