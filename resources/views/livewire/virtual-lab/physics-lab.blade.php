@@ -405,8 +405,10 @@
                         wire:click="calculateProjectile" 
                         class="btn-primary w-full"
                         icon="o-play"
+                        spinner="calculateProjectile"
                     >
-                        Launch Projectile
+                        <span wire:loading.remove wire:target="calculateProjectile">Launch Projectile</span>
+                        <span wire:loading wire:target="calculateProjectile">Calculating...</span>
                     </x-button>
                     <div id="projectileResults" class="bg-base-200 p-4 rounded-lg space-y-2 hidden">
                         <p><strong>Max Height:</strong> <span id="maxHeight">-</span> m</p>
@@ -456,8 +458,10 @@
                         wire:click="startPendulum" 
                         class="btn-primary w-full"
                         icon="o-play"
+                        spinner="startPendulum"
                     >
-                        Start Pendulum
+                        <span wire:loading.remove wire:target="startPendulum">Start Pendulum</span>
+                        <span wire:loading wire:target="startPendulum">Starting...</span>
                     </x-button>
                     <div id="pendulumResults" class="bg-base-200 p-4 rounded-lg space-y-2 hidden">
                         <p><strong>Period:</strong> <span id="pendulumPeriod">-</span> s</p>
@@ -505,8 +509,10 @@
                         wire:click="startSpring" 
                         class="btn-primary w-full"
                         icon="o-play"
+                        spinner="startSpring"
                     >
-                        Start Oscillation
+                        <span wire:loading.remove wire:target="startSpring">Start Oscillation</span>
+                        <span wire:loading wire:target="startSpring">Starting...</span>
                     </x-button>
                     <div id="springResults" class="bg-base-200 p-4 rounded-lg space-y-2 hidden">
                         <p><strong>Period:</strong> <span id="springPeriod">-</span> s</p>
@@ -546,8 +552,10 @@
                         wire:click="calculateFreeFall" 
                         class="btn-primary w-full"
                         icon="o-play"
+                        spinner="calculateFreeFall"
                     >
-                        Drop Object
+                        <span wire:loading.remove wire:target="calculateFreeFall">Drop Object</span>
+                        <span wire:loading wire:target="calculateFreeFall">Calculating...</span>
                     </x-button>
                     <div id="freeFallResults" class="bg-base-200 p-4 rounded-lg space-y-2 hidden">
                         <p><strong>Time to Fall:</strong> <span id="timeToFall">-</span> s</p>
