@@ -139,9 +139,7 @@
             <x-menu-item title="Home" icon="o-home" link="{{ route('home') }}" wire:navigate />
             
             {{-- Virtual Lab Section --}}
-            <x-menu-sub title="Virtual Lab" icon="o-beaker" link="{{ route('virtual-lab.index') }}">
-                <x-menu-item title="Overview" icon="o-home" link="{{ route('virtual-lab.index') }}" wire:navigate />
-                <x-menu-separator />
+            <x-menu-sub title="Virtual Lab" icon="o-beaker">
                 <x-menu-item title="Physics Lab" icon="o-bolt" link="{{ route('virtual-lab.physics') }}" wire:navigate />
                 <x-menu-item title="Math Lab" icon="o-calculator" link="{{ route('virtual-lab.math') }}" wire:navigate />
                 <x-menu-item title="Chemistry Lab" icon="o-beaker" link="{{ route('virtual-lab.chemistry') }}" wire:navigate />

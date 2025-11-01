@@ -14,7 +14,7 @@ class Home extends Component
 
     public function mount()
     {
-        // dd(getGeneralLocation());
+        $this->info('Home', position: 'toast-top toast-end');
     }
 
     public function render()

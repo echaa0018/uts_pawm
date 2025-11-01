@@ -35,7 +35,6 @@ Route::middleware(['auth', 'domainCheck'])->group(function () {
     });
 
     // Virtual Lab Routes
-    Route::get('/virtual-lab', \App\Livewire\VirtualLab\VirtualLabIndex::class)->name('virtual-lab.index');
     Route::get('/virtual-lab/physics', \App\Livewire\VirtualLab\PhysicsLab::class)->name('virtual-lab.physics');
     Route::get('/virtual-lab/math', \App\Livewire\VirtualLab\MathLab::class)->name('virtual-lab.math');
     Route::get('/virtual-lab/chemistry', \App\Livewire\VirtualLab\ChemistryLab::class)->name('virtual-lab.chemistry');
