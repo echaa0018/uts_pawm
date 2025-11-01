@@ -17,7 +17,7 @@
             </div>
         </x-card>
 
-        {{-- Experiment Selection and Formulas Side by Side --}}
+        {{-- Experiment Selection and Formulas --}}
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {{-- Experiment Selection --}}
             <x-card>
