@@ -3,6 +3,13 @@
     <div class="hero min-h-64 bg-base-100 rounded-2xl border border-base-300">
         <div class="hero-content text-center">
             <div class="max-w-2xl">
+                <div class="flex justify-center mb-6">
+                    <div class="avatar">
+                        <div class="w-24 h-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                            <img src="{{ asset('image/houshou_icon.jpg') }}" alt="Houshou Virtual Labs Logo" />
+                        </div>
+                    </div>
+                </div>
                 <h1 class="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                     Welcome to Houshou Virtual Labs
                 </h1>
@@ -11,69 +18,6 @@
                     Conduct experiments, solve equations, and discover the wonders of science.
                 </p>
             </div>
-        </div>
-    </div>
-
-    {{-- Enhanced Statistics --}}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="stat bg-base-100 border border-base-300 rounded-2xl shadow-lg hover:shadow-xl transition-all">
-            <div class="stat-figure text-primary">
-                <div class="avatar">
-                    <div class="w-16 h-16 rounded-full bg-base-100 border border-base-300 p-4">
-                        <svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="stat-title text-primary/80">Total Experiment</div>
-            <div class="stat-value text-primary">4</div>
-            <div class="stat-desc">Across all labs</div>
-        </div>
-
-        <div class="stat bg-base-100 border border-base-300 rounded-2xl shadow-lg hover:shadow-xl transition-all">
-            <div class="stat-figure text-secondary">
-                <div class="avatar">
-                    <div class="w-16 h-16 rounded-full bg-base-100 border border-base-300 p-4">
-                        <svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="stat-title text-secondary/80">Math</div>
-            <div class="stat-value text-secondary">0</div>
-            <div class="stat-desc">Coming Soon</div>
-        </div>
-
-        <div class="stat bg-base-100 border border-base-300 rounded-2xl shadow-lg hover:shadow-xl transition-all">
-            <div class="stat-figure text-accent">
-                <div class="avatar">
-                    <div class="w-16 h-16 rounded-full bg-base-100 border border-base-300 p-4">
-                        <svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="stat-title text-accent/80">Physics</div>
-            <div class="stat-value text-accent">4</div>
-            <div class="stat-desc">Experiments</div>
-        </div>
-
-        <div class="stat bg-base-100 border border-base-300 rounded-2xl shadow-lg hover:shadow-xl transition-all">
-            <div class="stat-figure text-info">
-                <div class="avatar">
-                    <div class="w-16 h-16 rounded-full bg-base-100 border border-base-300 p-4">
-                        <svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="stat-title text-info/80">Chemistry</div>
-            <div class="stat-value text-info">0</div>
-            <div class="stat-desc">Coming Soon</div>
         </div>
     </div>
 
@@ -89,7 +33,6 @@
                     </div>
                 </div>
                 <h2 class="card-title text-2xl">Virtual Laboratory</h2>
-                <div class="badge badge-primary badge-lg">Interactive</div>
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -189,7 +132,6 @@
                     </div>
                 </div>
                 <h2 class="card-title text-2xl">Features</h2>
-                <div class="badge badge-primary badge-lg">Highlights</div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
