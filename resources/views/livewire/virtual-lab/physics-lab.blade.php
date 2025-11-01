@@ -57,7 +57,7 @@
             {{-- Physics Formulas --}}
             <x-card>
                 <h2 class="text-xl font-semibold mb-4">📚 Physics Formulas</h2>
-                <div class="text-sm">
+                <div class="text-sm space-y-4">
                     @if($activeExperiment === 'projectile')
                     <div class="bg-base-200 p-4 rounded-lg">
                         <h3 class="font-semibold mb-2">Projectile Motion</h3>
@@ -67,6 +67,37 @@
                             <li>• Time of Flight: T = (2v₀ × sin(θ)) / g</li>
                         </ul>
                     </div>
+                    
+                    {{-- Calculated Results --}}
+                    @php
+                        $angleRad = deg2rad($angle);
+                        $vx = $velocity * cos($angleRad);
+                        $vy = $velocity * sin($angleRad);
+                        $calcRange = ($velocity ** 2 * sin(2 * $angleRad)) / $gravity;
+                        $calcMaxHeight = ($vy ** 2) / (2 * $gravity);
+                        $calcTimeOfFlight = (2 * $vy) / $gravity;
+                    @endphp
+                    <div class="bg-primary/10 border border-primary/30 p-4 rounded-lg">
+                        <h3 class="font-semibold mb-3 text-primary flex items-center gap-2">
+                            <x-icon name="o-calculator" class="w-4 h-4" />
+                            Calculated Results
+                        </h3>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Range (R):</span>
+                                <span class="font-bold">{{ number_format($calcRange, 2) }} m</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Max Height (H):</span>
+                                <span class="font-bold">{{ number_format($calcMaxHeight, 2) }} m</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Time of Flight (T):</span>
+                                <span class="font-bold">{{ number_format($calcTimeOfFlight, 2) }} s</span>
+                            </div>
+                        </div>
+                    </div>
+                    
                     @elseif($activeExperiment === 'pendulum')
                     <div class="bg-base-200 p-4 rounded-lg">
                         <h3 class="font-semibold mb-2">Damped Pendulum (Air Resistance)</h3>
@@ -80,6 +111,45 @@
                             <li>• Energy decreases exponentially</li>
                         </ul>
                     </div>
+                    
+                    {{-- Calculated Results --}}
+                    @php
+                        $calcPeriod = 2 * pi() * sqrt($pendulumLength / $pendulumGravity);
+                        $calcOmega = sqrt($pendulumGravity / $pendulumLength);
+                        $calcDamping = 0.1 * sqrt($pendulumLength);
+                        $calcDampingRatio = $calcDamping / (2 * $calcOmega);
+                        $calcDampedOmega = $calcOmega * sqrt(abs(1 - $calcDampingRatio ** 2));
+                        $calcFrequency = 1 / $calcPeriod;
+                    @endphp
+                    <div class="bg-secondary/10 border border-secondary/30 p-4 rounded-lg">
+                        <h3 class="font-semibold mb-3 text-secondary flex items-center gap-2">
+                            <x-icon name="o-calculator" class="w-4 h-4" />
+                            Calculated Results
+                        </h3>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Period (T):</span>
+                                <span class="font-bold">{{ number_format($calcPeriod, 3) }} s</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Frequency (f):</span>
+                                <span class="font-bold">{{ number_format($calcFrequency, 3) }} Hz</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Angular Freq (ω):</span>
+                                <span class="font-bold">{{ number_format($calcOmega, 3) }} rad/s</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Damping (b):</span>
+                                <span class="font-bold">{{ number_format($calcDamping, 3) }}</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Damping Ratio (ζ):</span>
+                                <span class="font-bold">{{ number_format($calcDampingRatio, 3) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
                     @elseif($activeExperiment === 'spring')
                     <div class="bg-base-200 p-4 rounded-lg">
                         <h3 class="font-semibold mb-2">Damped Spring-Mass (Friction)</h3>
@@ -94,6 +164,50 @@
                             <li>• Energy decreases exponentially</li>
                         </ul>
                     </div>
+                    
+                    {{-- Calculated Results --}}
+                    @php
+                        $calcAngularFreq = sqrt($springConstant / $mass);
+                        $calcSpringPeriod = (2 * pi()) / $calcAngularFreq;
+                        $calcSpringFrequency = 1 / $calcSpringPeriod;
+                        $calcCriticalDamping = 2 * sqrt($springConstant * $mass);
+                        $calcSpringDamping = 0.1 * $calcCriticalDamping;
+                        $calcSpringDampingRatio = $calcSpringDamping / (2 * sqrt($springConstant * $mass));
+                        $calcSpringDampedOmega = $calcAngularFreq * sqrt(abs(1 - $calcSpringDampingRatio ** 2));
+                    @endphp
+                    <div class="bg-accent/10 border border-accent/30 p-4 rounded-lg">
+                        <h3 class="font-semibold mb-3 text-accent flex items-center gap-2">
+                            <x-icon name="o-calculator" class="w-4 h-4" />
+                            Calculated Results
+                        </h3>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Period (T):</span>
+                                <span class="font-bold">{{ number_format($calcSpringPeriod, 3) }} s</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Frequency (f):</span>
+                                <span class="font-bold">{{ number_format($calcSpringFrequency, 3) }} Hz</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Angular Freq (ω):</span>
+                                <span class="font-bold">{{ number_format($calcAngularFreq, 3) }} rad/s</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Critical Damp (c_c):</span>
+                                <span class="font-bold">{{ number_format($calcCriticalDamping, 3) }} Ns/m</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Damping (c):</span>
+                                <span class="font-bold">{{ number_format($calcSpringDamping, 3) }} Ns/m</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Damping Ratio (ζ):</span>
+                                <span class="font-bold">{{ number_format($calcSpringDampingRatio, 3) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
                     @elseif($activeExperiment === 'freefall')
                     <div class="bg-base-200 p-4 rounded-lg">
                         <h3 class="font-semibold mb-2">Free Fall</h3>
@@ -103,6 +217,33 @@
                             <li>• Final Velocity: v = √(2gh)</li>
                             <li>• Time to Fall: t = √(2h/g)</li>
                         </ul>
+                    </div>
+                    
+                    {{-- Calculated Results --}}
+                    @php
+                        $calcTimeToFall = sqrt((2 * $height) / $freeFallGravity);
+                        $calcFinalVelocity = $freeFallGravity * $calcTimeToFall;
+                        $calcFinalVelocityAlt = sqrt(2 * $freeFallGravity * $height);
+                    @endphp
+                    <div class="bg-info/10 border border-info/30 p-4 rounded-lg">
+                        <h3 class="font-semibold mb-3 text-info flex items-center gap-2">
+                            <x-icon name="o-calculator" class="w-4 h-4" />
+                            Calculated Results
+                        </h3>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Time to Fall (t):</span>
+                                <span class="font-bold">{{ number_format($calcTimeToFall, 3) }} s</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Final Velocity (v):</span>
+                                <span class="font-bold">{{ number_format($calcFinalVelocity, 2) }} m/s</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-base-content/70">Impact Energy:</span>
+                                <span class="font-bold">{{ number_format($freeFallGravity * $height, 2) }} J/kg</span>
+                            </div>
+                        </div>
                     </div>
                     @endif
                 </div>
