@@ -573,33 +573,50 @@
     </div>
 
     @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js" crossorigin="anonymous"></script>
     <script>
-        let projectileChart = null;
-        let pendulumAnimation = null;
-        let springAnimation = null;
-        let freeFallChart = null;
+        // Ensure Chart.js is loaded
+        (function() {
+            // Check if Chart.js is loaded
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js failed to load from CDN');
+                return;
+            }
+            console.log('Chart.js loaded successfully, version:', Chart.version);
 
-        document.addEventListener('livewire:initialized', () => {
-            
-            // Projectile Motion Visualization
-            Livewire.on('updateProjectile', (event) => {
-                console.log('Projectile event received:', event);
-                const data = event;
-                const ctx = document.getElementById('projectileCanvas');
+            let projectileChart = null;
+            let pendulumAnimation = null;
+            let springAnimation = null;
+            let freeFallChart = null;
+
+            // Wait for both DOM and Livewire to be ready
+            const initPhysicsLab = () => {
+                console.log('Initializing Physics Lab...');
                 
-                if (!ctx) {
-                    console.error('Canvas element not found');
-                    return;
-                }
-                
-                const context = ctx.getContext('2d');
-                
-                if (projectileChart) {
-                    projectileChart.destroy();
-                }
-                
-                projectileChart = new Chart(context, {
+                // Projectile Motion Visualization
+                Livewire.on('updateProjectile', (event) => {
+                    console.log('Projectile event received:', event);
+                    const data = event;
+                    const ctx = document.getElementById('projectileCanvas');
+                    
+                    if (!ctx) {
+                        console.error('Projectile canvas element not found');
+                        return;
+                    }
+                    
+                    const context = ctx.getContext('2d');
+                    
+                    if (!context) {
+                        console.error('Failed to get 2D context');
+                        return;
+                    }
+                    
+                    if (projectileChart) {
+                        projectileChart.destroy();
+                    }
+                    
+                    try {
+                        projectileChart = new Chart(context, {
                     type: 'line',
                     data: {
                         datasets: [{
@@ -635,10 +652,13 @@
                     }
                 });
 
-                document.getElementById('projectileResults').classList.remove('hidden');
-                document.getElementById('maxHeight').textContent = data.maxHeight;
-                document.getElementById('range').textContent = data.range;
-                document.getElementById('timeOfFlight').textContent = data.timeOfFlight;
+                    document.getElementById('projectileResults').classList.remove('hidden');
+                    document.getElementById('maxHeight').textContent = data.maxHeight;
+                    document.getElementById('range').textContent = data.range;
+                    document.getElementById('timeOfFlight').textContent = data.timeOfFlight;
+                } catch (error) {
+                    console.error('Error creating projectile chart:', error);
+                }
             });
 
             // Pendulum Animation
@@ -901,7 +921,22 @@
                 document.getElementById('timeToFall').textContent = data.timeToFall;
                 document.getElementById('finalVelocity').textContent = data.finalVelocity;
             });
-        });
+        };
+
+        // Initialize when Livewire is ready
+        if (typeof Livewire !== 'undefined') {
+            document.addEventListener('livewire:initialized', initPhysicsLab);
+        } else {
+            // Fallback if Livewire is not loaded yet
+            document.addEventListener('DOMContentLoaded', () => {
+                if (typeof Livewire !== 'undefined') {
+                    initPhysicsLab();
+                } else {
+                    console.error('Livewire not loaded');
+                }
+            });
+        }
+    })();
     </script>
     @endpush
 </div>

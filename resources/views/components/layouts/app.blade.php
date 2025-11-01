@@ -173,5 +173,8 @@
 
     {{-- TOAST area --}}
     <x-toast />
+
+    {{-- Scripts at end of body for proper DOM loading --}}
+    @stack('scripts')
   </body>
 </html>
