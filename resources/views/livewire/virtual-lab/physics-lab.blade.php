@@ -573,13 +573,12 @@
     </div>
 
     @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js" crossorigin="anonymous"></script>
     <script>
-        // Ensure Chart.js is loaded
+        // Chart.js is now loaded via app.js (Vite bundle)
         (function() {
             // Check if Chart.js is loaded
             if (typeof Chart === 'undefined') {
-                console.error('Chart.js failed to load from CDN');
+                console.error('Chart.js not loaded - check if app.js is properly compiled');
                 return;
             }
             console.log('Chart.js loaded successfully, version:', Chart.version);
@@ -923,18 +922,42 @@
             });
         };
 
-        // Initialize when Livewire is ready
-        if (typeof Livewire !== 'undefined') {
-            document.addEventListener('livewire:initialized', initPhysicsLab);
-        } else {
-            // Fallback if Livewire is not loaded yet
+        // Initialize when Livewire is ready with multiple fallbacks
+        const setupListeners = () => {
+            console.log('Setting up Physics Lab listeners...');
+            console.log('Chart available?', typeof Chart !== 'undefined');
+            console.log('Livewire available?', typeof Livewire !== 'undefined');
+            
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js is not available! Check if app.js loaded correctly.');
+                return;
+            }
+            
+            if (typeof Livewire !== 'undefined') {
+                initPhysicsLab();
+            } else {
+                console.warn('Livewire not ready, waiting...');
+                setTimeout(setupListeners, 100);
+            }
+        };
+
+        // Wait for window to be fully loaded
+        if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
+                console.log('DOM Content Loaded');
                 if (typeof Livewire !== 'undefined') {
-                    initPhysicsLab();
+                    document.addEventListener('livewire:initialized', initPhysicsLab);
                 } else {
-                    console.error('Livewire not loaded');
+                    window.addEventListener('load', setupListeners);
                 }
             });
+        } else {
+            // DOM is already loaded
+            if (typeof Livewire !== 'undefined') {
+                document.addEventListener('livewire:initialized', initPhysicsLab);
+            } else {
+                setupListeners();
+            }
         }
     })();
     </script>

@@ -4,13 +4,14 @@ nixPkgs = ['...', 'postgresql']
 [phases.install]
 cmds = [
     'composer install --no-dev --optimize-autoloader --no-interaction',
-    'npm ci --include=dev'
+    'npm ci --include=dev || npm install'
 ]
 
 [phases.build]
 cmds = [
     'npm run build',
     'ls -la public/build || echo "Build directory not found!"',
-    'ls -la public/build/manifest.json || echo "Manifest not found!"'
+    'ls -la public/build/manifest.json || echo "Manifest not found!"',
+    'cat public/build/manifest.json || echo "Cannot read manifest"'
 ]
 
