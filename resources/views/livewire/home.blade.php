@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="stat-title text-primary/80">Total Experiment</div>
-            <div class="stat-value text-primary">19</div>
+            <div class="stat-value text-primary">4</div>
             <div class="stat-desc">Across all labs</div>
         </div>
 
@@ -42,8 +42,8 @@
                 </div>
             </div>
             <div class="stat-title text-secondary/80">Math</div>
-            <div class="stat-value text-secondary">6</div>
-            <div class="stat-desc">Experiments</div>
+            <div class="stat-value text-secondary">0</div>
+            <div class="stat-desc">Coming Soon</div>
         </div>
 
         <div class="stat bg-base-100 border border-base-300 rounded-2xl shadow-lg hover:shadow-xl transition-all">
@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div class="stat-title text-accent/80">Physics</div>
-            <div class="stat-value text-accent">6</div>
+            <div class="stat-value text-accent">4</div>
             <div class="stat-desc">Experiments</div>
         </div>
 
@@ -72,8 +72,8 @@
                 </div>
             </div>
             <div class="stat-title text-info/80">Chemistry</div>
-            <div class="stat-value text-info">7</div>
-            <div class="stat-desc">Calculators</div>
+            <div class="stat-value text-info">0</div>
+            <div class="stat-desc">Coming Soon</div>
         </div>
     </div>
 
@@ -106,8 +106,8 @@
                                 </div>
                             </div>
                             <h3 class="font-bold text-xl text-secondary group-hover:text-secondary/90 mb-2 transition-colors">Physics</h3>
-                            <div class="text-4xl font-bold text-secondary my-3 group-hover:scale-110 transition-transform">6</div>
-                            <p class="text-sm opacity-70 group-hover:opacity-90 transition-opacity">Experiments</p>
+                            <div class="text-4xl font-bold text-secondary my-3 group-hover:scale-110 transition-transform">4</div>
+                            <div class="text-sm opacity-70 group-hover:opacity-90 transition-opacity">Experiments</div>
                             <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <div class="flex items-center justify-center gap-1 text-secondary/60">
                                     <span class="text-xs">Start Lab</span>
@@ -133,8 +133,8 @@
                                 </div>
                             </div>
                             <h3 class="font-bold text-xl text-accent group-hover:text-accent/90 mb-2 transition-colors">Math</h3>
-                            <div class="text-4xl font-bold text-accent my-3 group-hover:scale-110 transition-transform">6</div>
-                            <p class="text-sm opacity-70 group-hover:opacity-90 transition-opacity">Tools</p>
+                            <div class="text-4xl font-bold text-accent my-3 group-hover:scale-110 transition-transform">0</div>
+                            <div class="text-sm opacity-70 group-hover:opacity-90 transition-opacity">Coming Soon</div>
                             <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <div class="flex items-center justify-center gap-1 text-accent/60">
                                     <span class="text-xs">Start Lab</span>
@@ -160,8 +160,8 @@
                                 </div>
                             </div>
                             <h3 class="font-bold text-xl text-info group-hover:text-info/90 mb-2 transition-colors">Chemistry</h3>
-                            <div class="text-4xl font-bold text-info my-3 group-hover:scale-110 transition-transform">7</div>
-                            <p class="text-sm opacity-70 group-hover:opacity-90 transition-opacity">Calculators</p>
+                            <div class="text-4xl font-bold text-info my-3 group-hover:scale-110 transition-transform">0</div>
+                            <div class="text-sm opacity-70 group-hover:opacity-90 transition-opacity">Coming Soon</div>
                             <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <div class="flex items-center justify-center gap-1 text-info/60">
                                     <span class="text-xs">Start Lab</span>
