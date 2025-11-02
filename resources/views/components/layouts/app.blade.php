@@ -10,7 +10,6 @@
     <link rel="icon" type="image/jpeg" href="/image/houshou_icon.jpg">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @stack('scripts')
   </head>
   <body class="min-h-screen font-sans antialiased bg-base-200">
     {{-- NAVBAR mobile only --}}
