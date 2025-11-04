@@ -76,8 +76,8 @@
                                 </div>
                             </div>
                             <h3 class="font-bold text-xl text-accent group-hover:text-accent/90 mb-2 transition-colors">Math</h3>
-                            <div class="text-4xl font-bold text-accent my-3 group-hover:scale-110 transition-transform">0</div>
-                            <div class="text-sm opacity-70 group-hover:opacity-90 transition-opacity">Coming Soon</div>
+                            <div class="text-4xl font-bold text-accent my-3 group-hover:scale-110 transition-transform">4</div>
+                            <div class="text-sm opacity-70 group-hover:opacity-90 transition-opacity">Experiments</div>
                             <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <div class="flex items-center justify-center gap-1 text-accent/60">
                                     <span class="text-xs">Start Lab</span>
@@ -103,8 +103,8 @@
                                 </div>
                             </div>
                             <h3 class="font-bold text-xl text-info group-hover:text-info/90 mb-2 transition-colors">Chemistry</h3>
-                            <div class="text-4xl font-bold text-info my-3 group-hover:scale-110 transition-transform">0</div>
-                            <div class="text-sm opacity-70 group-hover:opacity-90 transition-opacity">Coming Soon</div>
+                            <div class="text-4xl font-bold text-info my-3 group-hover:scale-110 transition-transform">4</div>
+                            <div class="text-sm opacity-70 group-hover:opacity-90 transition-opacity">Experiments</div>
                             <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <div class="flex items-center justify-center gap-1 text-info/60">
                                     <span class="text-xs">Start Lab</span>
