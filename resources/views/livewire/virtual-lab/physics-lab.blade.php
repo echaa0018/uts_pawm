@@ -376,7 +376,7 @@
         {{-- Projectile Motion Experiment --}}
         @if($activeExperiment === 'projectile')
         <x-card>
-            <h2 class="text-2xl font-semibold mb-4">🎯 Projectile Motion</h2>
+            <h2 class="text-2xl font-semibold mb-4">Projectile Motion</h2>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="space-y-4">
                     <x-input 
@@ -410,15 +410,10 @@
                         <span wire:loading.remove wire:target="calculateProjectile">Launch Projectile</span>
                         <span wire:loading wire:target="calculateProjectile">Calculating...</span>
                     </x-button>
-                    <div id="projectileResults" class="bg-base-200 p-4 rounded-lg space-y-2 hidden">
-                        <p><strong>Max Height:</strong> <span id="maxHeight">-</span> m</p>
-                        <p><strong>Range:</strong> <span id="range">-</span> m</p>
-                        <p><strong>Time of Flight:</strong> <span id="timeOfFlight">-</span> s</p>
-                    </div>
                 </div>
                 <div class="lg:col-span-2">
                     <div class="bg-base-200 rounded-lg p-4" style="height: 400px; position: relative;">
-                        <canvas id="projectileCanvas" style="width: 100%; height: 100%;"></canvas>
+                        <canvas id="projectileCanvas" width="800" height="400"></canvas>
                     </div>
                 </div>
             </div>
@@ -428,7 +423,7 @@
         {{-- Pendulum Experiment --}}
         @if($activeExperiment === 'pendulum')
         <x-card>
-            <h2 class="text-2xl font-semibold mb-4">⏰ Simple Pendulum (with Air Resistance)</h2>
+            <h2 class="text-2xl font-semibold mb-4">Simple Pendulum (with Air Resistance)</h2>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="space-y-4">
                     <x-input 
@@ -463,10 +458,6 @@
                         <span wire:loading.remove wire:target="startPendulum">Start Pendulum</span>
                         <span wire:loading wire:target="startPendulum">Starting...</span>
                     </x-button>
-                    <div id="pendulumResults" class="bg-base-200 p-4 rounded-lg space-y-2 hidden">
-                        <p><strong>Period:</strong> <span id="pendulumPeriod">-</span> s</p>
-                        <p><strong>Frequency:</strong> <span id="pendulumFrequency">-</span> Hz</p>
-                    </div>
                 </div>
                 <div class="lg:col-span-2">
                     <div class="bg-base-200 rounded-lg p-4 flex items-center justify-center" style="height: 400px;">
@@ -480,7 +471,7 @@
         {{-- Spring-Mass System --}}
         @if($activeExperiment === 'spring')
         <x-card>
-            <h2 class="text-2xl font-semibold mb-4">🔃 Spring-Mass System (with Friction)</h2>
+            <h2 class="text-2xl font-semibold mb-4">Spring-Mass System (with Friction)</h2>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="space-y-4">
                     <x-input 
@@ -514,10 +505,6 @@
                         <span wire:loading.remove wire:target="startSpring">Start Oscillation</span>
                         <span wire:loading wire:target="startSpring">Starting...</span>
                     </x-button>
-                    <div id="springResults" class="bg-base-200 p-4 rounded-lg space-y-2 hidden">
-                        <p><strong>Period:</strong> <span id="springPeriod">-</span> s</p>
-                        <p><strong>Frequency:</strong> <span id="springFrequency">-</span> Hz</p>
-                    </div>
                 </div>
                 <div class="lg:col-span-2">
                     <div class="bg-base-200 rounded-lg p-4 flex items-center justify-center" style="height: 400px;">
@@ -531,7 +518,7 @@
         {{-- Free Fall Experiment --}}
         @if($activeExperiment === 'freefall')
         <x-card>
-            <h2 class="text-2xl font-semibold mb-4">⬇️ Free Fall Motion</h2>
+            <h2 class="text-2xl font-semibold mb-4">Free Fall Motion</h2>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="space-y-4">
                     <x-input 
@@ -557,14 +544,10 @@
                         <span wire:loading.remove wire:target="calculateFreeFall">Drop Object</span>
                         <span wire:loading wire:target="calculateFreeFall">Calculating...</span>
                     </x-button>
-                    <div id="freeFallResults" class="bg-base-200 p-4 rounded-lg space-y-2 hidden">
-                        <p><strong>Time to Fall:</strong> <span id="timeToFall">-</span> s</p>
-                        <p><strong>Final Velocity:</strong> <span id="finalVelocity">-</span> m/s</p>
-                    </div>
                 </div>
                 <div class="lg:col-span-2">
                     <div class="bg-base-200 rounded-lg p-4" style="height: 400px; position: relative;">
-                        <canvas id="freeFallCanvas" style="width: 100%; height: 100%;"></canvas>
+                        <canvas id="freeFallCanvas" width="800" height="400"></canvas>
                     </div>
                 </div>
             </div>
@@ -574,27 +557,72 @@
 
     {{-- Load Chart.js from CDN --}}
     @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="{{ asset('js/physics-lab.js') }}"></script>
+    <script>
+        // Wait for Chart.js from app.js, then load physics-lab.js
+        (function loadPhysicsLabScript() {
+            if (typeof Chart !== 'undefined' || typeof window.Chart !== 'undefined') {
+                var script = document.createElement('script');
+                script.src = '/js/physics-lab.js';
+                script.onerror = function() {
+                    console.error('Failed to load physics-lab.js');
+                };
+                script.onload = function() {
+                    console.log('Physics lab script loaded successfully');
+                };
+                document.body.appendChild(script);
+            } else {
+                setTimeout(loadPhysicsLabScript, 100);
+            }
+        })();
+    </script>
     @endpush
 
     @script
     <script>
         // Listen to Livewire events and dispatch browser events for the physics-lab.js file
         $wire.on('updateProjectile', (data) => {
-            window.dispatchEvent(new CustomEvent('updateProjectile', { detail: data }));
+            console.log('Livewire updateProjectile event:', data);
+            // Wait for script to be ready
+            if (typeof initPhysicsLab === 'function' || typeof Chart !== 'undefined') {
+                window.dispatchEvent(new CustomEvent('updateProjectile', { detail: data }));
+            } else {
+                setTimeout(() => {
+                    window.dispatchEvent(new CustomEvent('updateProjectile', { detail: data }));
+                }, 500);
+            }
         });
 
         $wire.on('startPendulumAnimation', (data) => {
-            window.dispatchEvent(new CustomEvent('startPendulumAnimation', { detail: data }));
+            console.log('Livewire startPendulumAnimation event:', data);
+            if (typeof initPhysicsLab === 'function' || typeof Chart !== 'undefined') {
+                window.dispatchEvent(new CustomEvent('startPendulumAnimation', { detail: data }));
+            } else {
+                setTimeout(() => {
+                    window.dispatchEvent(new CustomEvent('startPendulumAnimation', { detail: data }));
+                }, 500);
+            }
         });
 
         $wire.on('startSpringAnimation', (data) => {
-            window.dispatchEvent(new CustomEvent('startSpringAnimation', { detail: data }));
+            console.log('Livewire startSpringAnimation event:', data);
+            if (typeof initPhysicsLab === 'function' || typeof Chart !== 'undefined') {
+                window.dispatchEvent(new CustomEvent('startSpringAnimation', { detail: data }));
+            } else {
+                setTimeout(() => {
+                    window.dispatchEvent(new CustomEvent('startSpringAnimation', { detail: data }));
+                }, 500);
+            }
         });
 
         $wire.on('updateFreeFall', (data) => {
-            window.dispatchEvent(new CustomEvent('updateFreeFall', { detail: data }));
+            console.log('Livewire updateFreeFall event:', data);
+            if (typeof initPhysicsLab === 'function' || typeof Chart !== 'undefined') {
+                window.dispatchEvent(new CustomEvent('updateFreeFall', { detail: data }));
+            } else {
+                setTimeout(() => {
+                    window.dispatchEvent(new CustomEvent('updateFreeFall', { detail: data }));
+                }, 500);
+            }
         });
     </script>
     @endscript

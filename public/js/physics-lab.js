@@ -1,40 +1,44 @@
-// Physics Lab - Chart.js Visualizations
-// This file is loaded directly (not through Vite) to ensure it's available in production
-
-// Wait for Chart.js to be loaded from CDN
 function initPhysicsLab() {
-    if (typeof Chart === 'undefined') {
+    const ChartLib = typeof Chart !== 'undefined' ? Chart : (typeof window.Chart !== 'undefined' ? window.Chart : null);
+    
+    if (!ChartLib) {
         console.error('Chart.js not loaded yet, retrying...');
         setTimeout(initPhysicsLab, 100);
         return;
     }
 
-    console.log('Physics Lab initialized with Chart.js version:', Chart.version);
+    console.log('Physics Lab initialized with Chart.js version:', ChartLib.version);
 
     let projectileChart = null;
     let pendulumAnimation = null;
     let springAnimation = null;
     let freeFallChart = null;
 
-    // Projectile Motion Visualization
     window.addEventListener('updateProjectile', (event) => {
         console.log('Projectile event received:', event.detail);
         const data = event.detail;
-        const ctx = document.getElementById('projectileCanvas');
+        const canvas = document.getElementById('projectileCanvas');
         
-        if (!ctx) {
+        if (!canvas) {
             console.error('Projectile canvas element not found');
             return;
         }
         
-        const context = ctx.getContext('2d');
+        if (typeof Chart === 'undefined') {
+            console.error('Chart.js not loaded yet');
+            setTimeout(() => window.dispatchEvent(new CustomEvent('updateProjectile', { detail: data })), 100);
+            return;
+        }
+        
+        const context = canvas.getContext('2d');
         
         if (projectileChart) {
             projectileChart.destroy();
         }
         
         try {
-            projectileChart = new Chart(context, {
+            const ChartLib = typeof Chart !== 'undefined' ? Chart : window.Chart;
+            projectileChart = new ChartLib(context, {
                 type: 'line',
                 data: {
                     datasets: [{
@@ -54,6 +58,9 @@ function initPhysicsLab() {
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    animation: {
+                        duration: 750
+                    },
                     scales: {
                         x: {
                             type: 'linear',
@@ -69,17 +76,11 @@ function initPhysicsLab() {
                     }
                 }
             });
-
-            document.getElementById('projectileResults').classList.remove('hidden');
-            document.getElementById('maxHeight').textContent = data.maxHeight;
-            document.getElementById('range').textContent = data.range;
-            document.getElementById('timeOfFlight').textContent = data.timeOfFlight;
         } catch (error) {
             console.error('Error creating projectile chart:', error);
         }
     });
 
-    // Pendulum Animation
     window.addEventListener('startPendulumAnimation', (event) => {
         console.log('Pendulum event received:', event.detail);
         const data = event.detail;
@@ -108,19 +109,15 @@ function initPhysicsLab() {
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Calculate current angle with damping
             const dampingFactor = Math.exp(-damping * time);
             const currentAngle = maxAngle * dampingFactor * Math.cos(dampedOmega * time);
             
-            // Calculate bob position
             const bobX = centerX + length * Math.sin(currentAngle);
             const bobY = centerY + length * Math.cos(currentAngle);
             
-            // Draw pivot
             ctx.fillStyle = '#333';
             ctx.fillRect(centerX - 5, centerY - 5, 10, 10);
             
-            // Draw string
             ctx.strokeStyle = '#666';
             ctx.lineWidth = 2;
             ctx.beginPath();
@@ -128,14 +125,12 @@ function initPhysicsLab() {
             ctx.lineTo(bobX, bobY);
             ctx.stroke();
             
-            // Draw bob with opacity based on energy
             const energyFactor = dampingFactor;
             ctx.fillStyle = `rgba(59, 130, 246, ${0.3 + 0.7 * energyFactor})`;
             ctx.beginPath();
             ctx.arc(bobX, bobY, 15, 0, Math.PI * 2);
             ctx.fill();
             
-            // Draw bob outline
             ctx.strokeStyle = '#2563eb';
             ctx.lineWidth = 2;
             ctx.stroke();
@@ -148,13 +143,8 @@ function initPhysicsLab() {
         }
         
         animate();
-        
-        document.getElementById('pendulumResults').classList.remove('hidden');
-        document.getElementById('pendulumPeriod').textContent = data.period;
-        document.getElementById('pendulumFrequency').textContent = data.frequency;
     });
 
-    // Spring-Mass Animation
     window.addEventListener('startSpringAnimation', (event) => {
         console.log('Spring event received:', event.detail);
         const data = event.detail;
@@ -182,16 +172,13 @@ function initPhysicsLab() {
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Calculate current position with damping
             const dampingFactor = Math.exp(-(damping / (2 * data.mass)) * time);
             const displacement = amplitude * dampingFactor * Math.cos(dampedOmega * time);
             const currentY = equilibriumY + displacement;
             
-            // Draw ceiling
             ctx.fillStyle = '#333';
             ctx.fillRect(0, 50, canvas.width, 10);
             
-            // Draw spring
             ctx.strokeStyle = '#666';
             ctx.lineWidth = 2;
             ctx.beginPath();
@@ -209,23 +196,19 @@ function initPhysicsLab() {
             ctx.lineTo(centerX, currentY - 30);
             ctx.stroke();
             
-            // Draw mass with opacity based on energy
             const energyFactor = dampingFactor;
             ctx.fillStyle = `rgba(59, 130, 246, ${0.3 + 0.7 * energyFactor})`;
             ctx.fillRect(centerX - 30, currentY - 30, 60, 60);
             
-            // Draw mass outline
             ctx.strokeStyle = '#2563eb';
             ctx.lineWidth = 2;
             ctx.strokeRect(centerX - 30, currentY - 30, 60, 60);
             
-            // Draw mass label
             ctx.fillStyle = '#fff';
             ctx.font = '14px Arial';
             ctx.textAlign = 'center';
             ctx.fillText(data.mass + ' kg', centerX, currentY + 5);
             
-            // Draw equilibrium line
             ctx.strokeStyle = '#ef4444';
             ctx.setLineDash([5, 5]);
             ctx.beginPath();
@@ -242,31 +225,33 @@ function initPhysicsLab() {
         }
         
         animate();
-        
-        document.getElementById('springResults').classList.remove('hidden');
-        document.getElementById('springPeriod').textContent = data.period;
-        document.getElementById('springFrequency').textContent = data.frequency;
     });
 
-    // Free Fall Visualization
     window.addEventListener('updateFreeFall', (event) => {
         console.log('FreeFall event received:', event.detail);
         const data = event.detail;
-        const ctx = document.getElementById('freeFallCanvas');
+        const canvas = document.getElementById('freeFallCanvas');
         
-        if (!ctx) {
+        if (!canvas) {
             console.error('FreeFall canvas not found');
             return;
         }
         
-        const context = ctx.getContext('2d');
+        if (typeof Chart === 'undefined') {
+            console.error('Chart.js not loaded yet');
+            setTimeout(() => window.dispatchEvent(new CustomEvent('updateFreeFall', { detail: data })), 100);
+            return;
+        }
+        
+        const context = canvas.getContext('2d');
         
         if (freeFallChart) {
             freeFallChart.destroy();
         }
         
         try {
-            freeFallChart = new Chart(context, {
+            const ChartLib = typeof Chart !== 'undefined' ? Chart : window.Chart;
+            freeFallChart = new ChartLib(context, {
                 type: 'line',
                 data: {
                     datasets: [
@@ -326,19 +311,24 @@ function initPhysicsLab() {
                     }
                 }
             });
-
-            document.getElementById('freeFallResults').classList.remove('hidden');
-            document.getElementById('timeToFall').textContent = data.timeToFall;
-            document.getElementById('finalVelocity').textContent = data.finalVelocity;
         } catch (error) {
             console.error('Error creating freefall chart:', error);
         }
     });
 }
 
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initPhysicsLab);
-} else {
+function waitForChartAndInit() {
+    if (typeof Chart !== 'undefined' || typeof window.Chart !== 'undefined') {
+        initPhysicsLab();
+    } else {
+        setTimeout(waitForChartAndInit, 100);
+    }
+}
+
+if (typeof Chart !== 'undefined' || typeof window.Chart !== 'undefined') {
     initPhysicsLab();
+} else if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', waitForChartAndInit);
+} else {
+    waitForChartAndInit();
 }

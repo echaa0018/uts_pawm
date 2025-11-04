@@ -11,24 +11,25 @@ class PhysicsLab extends Component
 
     public $activeExperiment = 'projectile';
 
-    // Projectile Motion
     public $velocity = 30;
     public $angle = 45;
     public $gravity = 9.8;
 
-    // Pendulum
     public $pendulumLength = 2;
     public $pendulumAngle = 30;
     public $pendulumGravity = 9.8;
 
-    // Spring-Mass System
     public $mass = 1;
     public $springConstant = 10;
     public $displacement = 0.5;
 
-    // Free Fall
     public $height = 50;
     public $freeFallGravity = 9.8;
+
+    public $projectileResults = null;
+    public $pendulumResults = null;
+    public $springResults = null;
+    public $freeFallResults = null;
 
     public function mount()
     {
@@ -63,6 +64,13 @@ class PhysicsLab extends Component
                 }
             }
             
+            $this->projectileResults = [
+                'maxHeight' => round($maxHeight, 2),
+                'range' => round($range, 2),
+                'timeOfFlight' => round($timeOfFlight, 2),
+                'trajectory' => $trajectory
+            ];
+            
             $this->dispatch('updateProjectile', 
                 trajectory: $trajectory,
                 maxHeight: round($maxHeight, 2),
@@ -83,21 +91,21 @@ class PhysicsLab extends Component
             $frequency = 1 / $period;
             $omega = sqrt($this->pendulumGravity / $this->pendulumLength);
             
-            // Calculate realistic damping based on air resistance and friction
-            // Typical damping for a pendulum in air: b ≈ 0.05 to 0.2 depending on size
-            // We'll calculate it based on pendulum properties
-            $bobMass = 0.5; // Assume 500g bob
-            $dragCoefficient = 0.47; // Sphere drag coefficient
-            $airDensity = 1.225; // kg/m³ at sea level
-            $bobRadius = 0.05; // 5cm radius
+            $bobMass = 0.5;
+            $dragCoefficient = 0.47;
+            $airDensity = 1.225;
+            $bobRadius = 0.05;
             $bobArea = pi() * $bobRadius ** 2;
             
-            // Damping coefficient from air resistance: b ≈ 0.5 * ρ * Cd * A * v / m
-            // For small oscillations, we use a simplified model
-            $damping = 0.1 * sqrt($this->pendulumLength); // Proportional to length
+            $damping = 0.1 * sqrt($this->pendulumLength);
             
             $dampingRatio = $damping / (2 * $omega);
             $dampedOmega = $omega * sqrt(abs(1 - $dampingRatio ** 2));
+            
+            $this->pendulumResults = [
+                'period' => round($period, 2),
+                'frequency' => round($frequency, 2)
+            ];
             
             $this->dispatch('startPendulumAnimation',
                 length: $this->pendulumLength,
@@ -123,15 +131,16 @@ class PhysicsLab extends Component
             $period = (2 * pi()) / $angularFrequency;
             $frequency = 1 / $period;
             
-            // Calculate realistic damping from material properties
-            // Damping in spring systems comes from internal friction and air resistance
-            // Typical damping coefficient c ≈ 0.1 to 0.5 for mechanical springs
-            // We'll calculate based on mass and spring constant
             $criticalDamping = 2 * sqrt($this->springConstant * $this->mass);
-            $damping = 0.1 * $criticalDamping; // 10% of critical damping (underdamped system)
+            $damping = 0.1 * $criticalDamping;
             
             $dampingRatio = $damping / (2 * sqrt($this->springConstant * $this->mass));
             $dampedOmega = $angularFrequency * sqrt(abs(1 - $dampingRatio ** 2));
+            
+            $this->springResults = [
+                'period' => round($period, 2),
+                'frequency' => round($frequency, 2)
+            ];
             
             $this->dispatch('startSpringAnimation',
                 mass: $this->mass,
@@ -171,6 +180,12 @@ class PhysicsLab extends Component
                     ];
                 }
             }
+            
+            $this->freeFallResults = [
+                'timeToFall' => round($timeToFall, 2),
+                'finalVelocity' => round($finalVelocity, 2),
+                'trajectory' => $trajectory
+            ];
             
             $this->dispatch('updateFreeFall',
                 trajectory: $trajectory,

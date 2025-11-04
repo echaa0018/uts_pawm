@@ -6,7 +6,7 @@
                 <div class="flex justify-center mb-6">
                     <div class="avatar">
                         <div class="w-24 h-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                            <img src="{{ asset('image/houshou_icon.jpg') }}" alt="Houshou Virtual Labs Logo" />
+                            <img src="{{ asset('image/houshou_icon.jpg') }}" alt="Houshou Virtual Labs Logo" onerror="this.src='/image/houshou_icon.jpg'; this.onerror=null;" />
                         </div>
                     </div>
                 </div>
